@@ -224,7 +224,9 @@
 <body>
     <div class="container">
         <header>
-            <a href="index.html" class="logo">Zoni<span>x</span><span class="tech">tec</span></a>
+             <a href="index.html" class="logo">
+                    <img src="./Assets/Logo.svg" alt="Zonixtec Logo" style="height: 40px; width: auto;">
+                </a>
             <h1>Website Sitemap</h1>
             <p class="subtitle">Explore the structure of our website and easily navigate to all our pages and services.</p>
         </header>

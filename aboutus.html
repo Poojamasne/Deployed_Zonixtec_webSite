@@ -528,7 +528,7 @@
             background: rgba(10, 10, 26, 0.7);
             border-radius: 10px;
             padding: 60px;
-            margin-top: 60px;
+
             position: relative;
             overflow: hidden;
         }
@@ -937,6 +937,439 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
+        /* Flashcard Services Section */
+        .flashcards-section {
+            margin-bottom: 80px;
+        }
+
+        .flashcards-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .flashcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .flashcard {
+            height: 350px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .flashcard:hover .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .flashcard-front {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .flashcard-back {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            transform: rotateY(180deg);
+            text-align: left;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .service-icon img {
+            width: 164px;
+            height: 168px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .service-desc {
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .service-cta {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .service-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+        }
+
+        .explore-all-btn {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .explore-all-btn .btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+            border: 2px solid transparent;
+        }
+
+        .explore-all-btn .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(37, 99, 235, 0.6);
+            border: 2px solid var(--secondary);
+        }
+
+        .explore-all-btn .btn i {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .explore-all-btn .btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Impact Numbers Section */
+        .impact-section {
+            padding: 80px 0;
+            margin-top: 0px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .impact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.03), transparent);
+            animation: slideBackground 8s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes slideBackground {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .impact-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--light);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .impact-title span {
+            color: var(--secondary);
+            position: relative;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(0, 242, 255, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(0, 242, 255, 0.8), 0 0 30px rgba(0, 242, 255, 0.6); }
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .impact-card {
+            text-align: center;
+            position: relative;
+            padding: 40px 25px;
+            border-radius: 15px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: cardFadeIn 0.8s ease forwards;
+        }
+
+        .impact-card:nth-child(1) { animation-delay: 0.2s; }
+        .impact-card:nth-child(2) { animation-delay: 0.4s; }
+        .impact-card:nth-child(3) { animation-delay: 0.6s; }
+        .impact-card:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes cardFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .impact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 102, 255, 0.1), rgba(0, 242, 255, 0.1));
+            border-radius: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: rgba(0, 242, 255, 0.3);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 30px rgba(0, 242, 255, 0.2);
+        }
+
+        .impact-card:hover::before {
+            opacity: 1;
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .impact-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.2), transparent);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .impact-card:hover .impact-icon {
+            transform: translateY(-5px) scale(1.1);
+            color: var(--secondary);
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        .impact-card:hover .impact-icon::before {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: translateY(-5px) scale(1.1); }
+            50% { transform: translateY(-8px) scale(1.15); }
+        }
+
+        .impact-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            display: block;
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .impact-card:hover .impact-number {
+            transform: scale(1.1);
+            text-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+        }
+
+        .impact-label {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--light);
+            line-height: 1.4;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .impact-card:hover .impact-label {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Floating particles animation */
+        .impact-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(0, 242, 255, 0.1), transparent);
+            border-radius: 15px;
+            opacity: 0;
+            z-index: -2;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0; transform: rotate(0deg); }
+            50% { opacity: 1; transform: rotate(1deg); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .impact-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+            
+            .impact-card {
+                padding: 35px 20px;
+            }
+            
+            .impact-number {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .impact-section {
+                padding: 60px 0;
+                margin-top: 40px;
+            }
+            
+            .impact-title {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+            
+            .impact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .impact-card {
+                padding: 30px 20px;
+                margin: 0 10px;
+            }
+            
+            .impact-number {
+                font-size: 3rem;
+            }
+            
+            .impact-icon {
+                font-size: 2.5rem;
+            }
+            
+            .impact-label {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .impact-card,
+            .impact-icon,
+            .impact-number,
+            .impact-title {
+                animation: none;
+                transition: none;
+            }
+            
+            .impact-section::before {
+                animation: none;
+            }
+            
+            .impact-title span {
+                animation: none;
+            }
+        }
+
         /* Career Section */
         .career-section {
             background: rgba(10, 10, 26, 0.7);
@@ -1229,7 +1662,9 @@
     <header id="header">
         <div class="container">
             <nav>
-                <a href="index.html" class="logo">Zoni<span>x</span><span class="tech">tec</span></a>
+                <a href="index.html" class="logo">
+                    <img src="./Assets/Logo.svg" alt="Zonixtec Logo" style="height: 40px; width: auto;">
+                </a>
                 <div class="nav-links">
                     <a href="index.html">Home</a>
                     <a href="aboutus.html" class="active">About</a>
@@ -1420,6 +1855,115 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Our Services -->
+            <div class="flashcards-section" style="margin-top: 80px;">
+                <h2 class="flashcards-title">Our Complete Service Portfolio</h2>
+                <div class="flashcards-grid">
+                    <!-- Custom Software Development -->
+                    <div class="flashcard">
+                        <a href="CustomSoftware.html">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <div class="service-icon">
+                                        <img src="./uploads/Custom Software Development.jpg" alt="Custom Software Development" />
+                                    </div>
+                                    <h3 class="service-title">Custom Software Development</h3>
+                                </div>
+                                <div class="flashcard-back">
+                                    <h3 class="service-title">Custom Software Development</h3>
+                                    <p class="service-desc">Build scalable and flexible custom software designed to meet your business needs with precision and innovation.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Custom CRM Solutions -->
+                    <div class="flashcard">
+                        <a href="crm-solutions.html">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <div class="service-icon">
+                                        <img src="./uploads/crm.jpg" alt="Custom CRM Solutions" />
+                                    </div>
+                                    <h3 class="service-title">CRM Solutions</h3>
+                                </div>
+                                <div class="flashcard-back">
+                                    <h3 class="service-title">CRM Solutions</h3>
+                                    <p class="service-desc">Implement tailored CRM systems to optimize customer relationships, streamline sales processes, and enhance customer satisfaction.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Web Design & Development -->
+                    <div class="flashcard">
+                        <a href="web-design-development.html">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <div class="service-icon">
+                                        <img src="./uploads/web-design-development.jpg" alt="Web Design & Development" />
+                                    </div>
+                                    <h3 class="service-title">Web Design & Development</h3>
+                                </div>
+                                <div class="flashcard-back">
+                                    <h3 class="service-title">Web Design & Development</h3>
+                                    <p class="service-desc">Create stunning, responsive websites that deliver exceptional user experiences and drive business growth with modern design principles.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Explore All Services Button -->
+                <div class="explore-all-btn">
+                    <a href="Services.html" class="btn">
+                        Explore All Services <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Impact in Numbers -->
+    <section class="section-padding" id="impact">
+        <div class="container">
+            <div class="impact-section">
+                <h2 class="impact-title">Our Impact in <span>Numbers</span></h2>
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <span class="impact-number" data-target="10">0</span>
+                        <p class="impact-label">Projects Successfully Delivered</p>
+                    </div>
+                    
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <span class="impact-number" data-target="15">0</span>
+                        <p class="impact-label">Skilled Developers & Engineers</p>
+                    </div>
+                    
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <span class="impact-number" data-target="5">0</span>
+                        <p class="impact-label">Industries Served</p>
+                    </div>
+                    
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <span class="impact-number" data-target="47">0</span>
+                        <p class="impact-label">Faster Delivery Timelines</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1442,8 +1986,10 @@
         </div>
     </section>
 
+
+
     <!-- Client Story - Kaleshwari Temple -->
-    <section class="section-padding" id="client-story">
+    <!-- <section class="section-padding" id="client-story">
         <div class="container">
             <h1 class="section-title">Client <span>Success Story</span></h1>
             <p class="hero-subtitle">How Kaleshwari Mandir Found Its Digital Devotees</p>
@@ -1644,10 +2190,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- CTA Section -->
-    <section class="section-padding" id="cta">
+    <!-- <section class="section-padding" id="cta">
         <div class="container">
             <div class="cta-section">
                 <h2>Your organization doesn't need to be a temple to face the same struggle.</h2>
@@ -1658,7 +2204,7 @@
                 <a href="contact.html" class="cta-button">Connect With Your Community</a>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Career Section -->
     <section class="section-padding" id="career">
@@ -1982,6 +2528,84 @@
                                 document.getElementById('OurCore').addEventListener('click', () => {
                                     sessionStorage.setItem('scrollAfterLoad3', 'true');
                                 });
+
+        // Enhanced Animated Number Counter with Professional Effects
+        function animateNumbers() {
+            const numberElements = document.querySelectorAll('.impact-number');
+            
+            numberElements.forEach((element, index) => {
+                const target = parseInt(element.getAttribute('data-target'));
+                const duration = 2500; // 2.5 seconds for smoother animation
+                const startDelay = index * 200; // Stagger animation for each card
+                
+                // Add initial animation class
+                element.parentElement.classList.add('animating');
+                
+                setTimeout(() => {
+                    let current = 0;
+                    const increment = target / (duration / 16); // 60fps
+                    
+                    const timer = setInterval(() => {
+                        current += increment;
+                        
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                            
+                            // Add final formatting with smooth transition
+                            const cardIndex = Array.from(numberElements).indexOf(element);
+                            setTimeout(() => {
+                                if (cardIndex === 3) { // Last card (47%)
+                                    element.textContent = Math.floor(current) + '%';
+                                } else {
+                                    element.textContent = Math.floor(current) + '+';
+                                }
+                                
+                                // Add completion effect
+                                element.style.transform = 'scale(1.1)';
+                                setTimeout(() => {
+                                    element.style.transform = 'scale(1)';
+                                    element.parentElement.classList.remove('animating');
+                                    element.parentElement.classList.add('animation-complete');
+                                }, 200);
+                            }, 100);
+                        } else {
+                            // Smooth easing function for more professional feel
+                            const easedCurrent = easeOutQuart(current / target) * target;
+                            element.textContent = Math.floor(easedCurrent);
+                        }
+                    }, 16);
+                }, startDelay);
+            });
+        }
+
+        // Professional easing function
+        function easeOutQuart(t) {
+            return 1 - (--t) * t * t * t;
+        }
+
+        // Enhanced Intersection Observer with better timing
+        const impactSection = document.querySelector('#impact');
+        let hasAnimated = false;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasAnimated) {
+                    // Add a slight delay for better visual impact
+                    setTimeout(() => {
+                        animateNumbers();
+                        hasAnimated = true;
+                    }, 300);
+                }
+            });
+        }, {
+            threshold: 0.3, // Trigger when 30% of section is visible for better timing
+            rootMargin: '0px 0px -50px 0px' // Trigger slightly before full visibility
+        });
+
+        if (impactSection) {
+            observer.observe(impactSection);
+        }
 
 
                             

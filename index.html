@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- favicon Icon -->
+    <!-- Favicon -->
     <link rel="icon" href="./Assets/WhatsApp Image 2025-10-15 at 15.47.06.jpeg" sizes="32x32" type="image/png">
+
+    <!-- Responsive Fixes CSS -->
+    <link rel="stylesheet" href="./CSS/responsive-fixes.css">
 
     <!-- SEO Meta Tags -->
     <title>Zonixtec - Transform Ideas into Powerful Digital Solutions</title>
@@ -75,11 +78,11 @@
             transition: all 0.3s ease;
         }
 
-        /* Global animation classes for scroll effects */
+        /* Global animation classes for scroll effects with mobile optimization */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
         .fade-in.visible {
@@ -89,20 +92,19 @@
 
         .slide-in-left {
             opacity: 0;
-            transform: translateX(-50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
         .slide-in-left.visible {
             opacity: 1;
-            background: rgba(15, 23, 42, 0.85);
             transform: translateX(0);
         }
 
         .slide-in-right {
             opacity: 0;
-            transform: translateX(50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
         .slide-in-right.visible {
@@ -112,8 +114,8 @@
 
         .scale-in {
             opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: scale(0.9);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         .scale-in.visible {
@@ -123,14 +125,76 @@
 
         .bounce-in {
             opacity: 0;
-            transform: translateY(50px) scale(0.3);
-            transition: opacity 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
-                       transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform: translateY(30px) scale(0.8);
+            transition: opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .bounce-in.visible {
             opacity: 1;
             transform: translateY(0) scale(1);
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+
+            .fade-in,
+            .slide-in-left,
+            .slide-in-right,
+            .scale-in,
+            .bounce-in {
+                transition: opacity 0.3s ease;
+                transform: none;
+            }
+
+            .fade-in.visible,
+            .slide-in-left.visible,
+            .slide-in-right.visible,
+            .scale-in.visible,
+            .bounce-in.visible {
+                transform: none;
+            }
+        }
+
+        /* Mobile animation optimizations */
+        @media (max-width: 768px) {
+
+            .fade-in,
+            .slide-in-left,
+            .slide-in-right,
+            .scale-in,
+            .bounce-in {
+                transition-duration: 0.4s;
+                transform: translateY(15px);
+            }
+
+            .slide-in-left {
+                transform: translateX(-15px);
+            }
+
+            .slide-in-right {
+                transform: translateX(15px);
+            }
+
+            .scale-in {
+                transform: scale(0.95);
+            }
+
+            .bounce-in {
+                transform: translateY(15px) scale(0.9);
+                transition: opacity 0.4s ease, transform 0.4s ease;
+            }
+        }
+
+        /* Prevent animation interference with layout */
+        body:not(.animations-ready) .fade-in,
+        body:not(.animations-ready) .slide-in-left,
+        body:not(.animations-ready) .slide-in-right,
+        body:not(.animations-ready) .scale-in,
+        body:not(.animations-ready) .bounce-in {
+            opacity: 1;
+            transform: none;
+            transition: none;
         }
 
         h1,
@@ -224,6 +288,7 @@
                 transform: translateY(-100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -302,113 +367,98 @@
             box-shadow: 0 10px 20px rgba(0, 102, 255, 0.3);
         }
 
+        /* Improved mobile navigation styles */
         .mobile-menu-btn {
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+            position: relative;
+            z-index: 1001;
+            background: none;
+            border: none;
+            color: var(--light);
+            padding: 5px;
         }
 
-        /* Hero Section */
+        /* Enhanced responsive behavior for mobile menu */
+        body.menu-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Prevent layout shifts on mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-content {
+                padding: 0 15px;
+                width: 100%;
+            }
+
+            .about-container,
+            .contact-container,
+            .services-grid,
+            .industries-container {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        /* Fix viewport height issues on mobile */
+        .hero {
+            height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+            min-height: 500px;
+        }
+
+        /* Ensure proper touch target sizes */
+        @media (max-width: 768px) {
+
+            .nav-links a,
+            .dropdown-toggle,
+            .mobile-menu-btn {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Hero Section with Video Background and Slider */
         .hero {
             position: relative;
-            background-image: url('./uploads/412ea792b6963690a4a9dce67b73f216.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
             height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+            min-height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             overflow: hidden;
+            transition: transform 0.3s ease;
         }
 
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1;
-            animation: fadeIn 1.5s ease-out, overlayShimmer 12s ease-in-out infinite;
-        }
-
-        @keyframes overlayShimmer {
-            0%, 100% {
-                background: rgba(0, 0, 0, 0.6);
-            }
-            50% {
-                background: rgba(0, 0, 0, 0.5);
-            }
-        }
-
-        .hero::after {
-            content: "";
+        /* Hero Background Videos */
+        .hero-bg-video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 30%, rgba(0, 242, 255, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.05) 0%, transparent 70%);
-            z-index: 1;
-            animation: particleFloat 20s ease-in-out infinite;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.4) saturate(1.2);
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
-        @keyframes particleFloat {
-            0%, 100% {
-                transform: translateX(0) translateY(0);
-                opacity: 0.8;
-            }
-            25% {
-                transform: translateX(10px) translateY(-10px);
-                opacity: 1;
-            }
-            50% {
-                transform: translateX(-5px) translateY(-20px);
-                opacity: 0.6;
-            }
-            75% {
-                transform: translateX(-10px) translateY(-5px);
-                opacity: 1;
-            }
-        }
-
-        .hero * {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            animation: backgroundZoom 25s ease-in-out infinite alternate,
-                       backgroundShift 15s ease-in-out infinite;
-        }
-
-        @keyframes backgroundZoom {
-            0% {
-                transform: scale(1) rotate(0deg);
-            }
-            50% {
-                transform: scale(1.08) rotate(0.5deg);
-            }
-            100% {
-                transform: scale(1.03) rotate(-0.5deg);
-            }
-        }
-
-        @keyframes backgroundShift {
-            0%, 100% {
-                filter: brightness(0.9) contrast(1.1);
-            }
-            50% {
-                filter: brightness(1.1) contrast(1.2);
-            }
+        .hero-bg-video.active {
+            opacity: 1;
         }
 
         .hero-overlay {
@@ -417,24 +467,68 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at center, rgba(5, 5, 17, 0.6) 0%, rgba(5, 5, 17, 0.8) 100%);
-            z-index: -1;
+            background: linear-gradient(135deg,
+                    rgba(5, 5, 17, 0.7) 0%,
+                    rgba(15, 23, 42, 0.6) 50%,
+                    rgba(5, 5, 17, 0.8) 100%);
+            z-index: 1;
             animation: overlayPulse 8s ease-in-out infinite alternate;
         }
 
         @keyframes overlayPulse {
             0% {
-                background: radial-gradient(ellipse at center, rgba(5, 5, 17, 0.6) 0%, rgba(5, 5, 17, 0.8) 100%);
+                background: linear-gradient(135deg,
+                        rgba(5, 5, 17, 0.7) 0%,
+                        rgba(15, 23, 42, 0.6) 50%,
+                        rgba(5, 5, 17, 0.8) 100%);
             }
+
             100% {
-                background: radial-gradient(ellipse at center, rgba(5, 5, 17, 0.5) 0%, rgba(5, 5, 17, 0.75) 100%);
+                background: linear-gradient(135deg,
+                        rgba(5, 5, 17, 0.6) 0%,
+                        rgba(15, 23, 42, 0.5) 50%,
+                        rgba(5, 5, 17, 0.7) 100%);
             }
         }
 
+        /* Slider Styles */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+
+        /* Hero Content */
         .hero-content {
             max-width: 1160px;
             padding: 0 20px;
             animation: heroEntrance 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            z-index: 3;
         }
 
         @keyframes heroEntrance {
@@ -443,11 +537,13 @@
                 transform: translateY(60px) scale(0.95);
                 filter: blur(3px);
             }
+
             50% {
                 opacity: 0.7;
                 transform: translateY(20px) scale(0.98);
                 filter: blur(1px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -460,17 +556,20 @@
             margin-bottom: 1.5rem;
             color: var(--light);
             animation: titleReveal 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s both,
-                       titleGlow 4s ease-in-out 2.5s infinite;
+                titleGlow 4s ease-in-out 2.5s infinite;
             text-shadow: 0 4px 20px rgba(0, 242, 255, 0.3);
         }
 
         @keyframes titleGlow {
-            0%, 100% {
+
+            0%,
+            100% {
                 text-shadow: 0 4px 20px rgba(0, 242, 255, 0.3);
             }
+
             50% {
                 text-shadow: 0 4px 25px rgba(0, 242, 255, 0.6),
-                             0 0 35px rgba(0, 242, 255, 0.4);
+                    0 0 35px rgba(0, 242, 255, 0.4);
             }
         }
 
@@ -480,10 +579,12 @@
                 transform: translateX(-100px) rotateY(-30deg);
                 text-shadow: none;
             }
+
             60% {
                 opacity: 0.8;
                 transform: translateX(10px) rotateY(5deg);
             }
+
             100% {
                 opacity: 1;
                 transform: translateX(0) rotateY(0);
@@ -508,10 +609,12 @@
                 transform: translateX(50px);
                 text-shadow: none;
             }
+
             70% {
                 opacity: 0.9;
                 transform: translateX(-5px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateX(0);
@@ -532,16 +635,56 @@
                 opacity: 0;
                 transform: translateY(40px) scale(0.8);
             }
+
             60% {
                 opacity: 0.8;
                 transform: translateY(-5px) scale(1.05);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
 
+        /* Slider Navigation */
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 4;
+            transform: translateY(-50%);
+        }
+
+        .prev-btn,
+        .next-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(0, 242, 255, 0.3);
+            color: var(--secondary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 1.2rem;
+        }
+
+        .prev-btn:hover,
+        .next-btn:hover {
+            background: rgba(0, 242, 255, 0.2);
+            border-color: var(--secondary);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
+
+        /* Enhanced Secondary Button */
         .secondary-button {
             display: inline-block;
             padding: 15px 30px;
@@ -670,10 +813,10 @@
         }
 
         .service-card:active::before {
-            background: linear-gradient(135deg, 
-                rgba(0, 242, 255, 0.3) 0%, 
-                rgba(0, 102, 255, 0.4) 50%, 
-                rgba(0, 242, 255, 0.3) 100%);
+            background: linear-gradient(135deg,
+                    rgba(0, 242, 255, 0.3) 0%,
+                    rgba(0, 102, 255, 0.4) 50%,
+                    rgba(0, 242, 255, 0.3) 100%);
             left: 0;
             opacity: 1;
             animation: clickFade 0.6s ease-out;
@@ -682,17 +825,18 @@
         @keyframes clickFade {
             0% {
                 opacity: 1;
-                background: linear-gradient(135deg, 
-                    rgba(0, 242, 255, 0.5) 0%, 
-                    rgba(0, 102, 255, 0.6) 50%, 
-                    rgba(0, 242, 255, 0.5) 100%);
+                background: linear-gradient(135deg,
+                        rgba(0, 242, 255, 0.5) 0%,
+                        rgba(0, 102, 255, 0.6) 50%,
+                        rgba(0, 242, 255, 0.5) 100%);
             }
+
             100% {
                 opacity: 0;
-                background: linear-gradient(135deg, 
-                    rgba(0, 242, 255, 0.1) 0%, 
-                    rgba(0, 102, 255, 0.2) 50%, 
-                    rgba(0, 242, 255, 0.1) 100%);
+                background: linear-gradient(135deg,
+                        rgba(0, 242, 255, 0.1) 0%,
+                        rgba(0, 102, 255, 0.2) 50%,
+                        rgba(0, 242, 255, 0.1) 100%);
             }
         }
 
@@ -703,12 +847,12 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, 
-                transparent 0%, 
-                rgba(0, 242, 255, 0.08) 25%, 
-                rgba(0, 102, 255, 0.12) 50%, 
-                rgba(0, 242, 255, 0.08) 75%, 
-                transparent 100%);
+            background: linear-gradient(135deg,
+                    transparent 0%,
+                    rgba(0, 242, 255, 0.08) 25%,
+                    rgba(0, 102, 255, 0.12) 50%,
+                    rgba(0, 242, 255, 0.08) 75%,
+                    transparent 100%);
             transition: left 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             opacity: 0;
         }
@@ -734,14 +878,15 @@
             opacity: 1;
             transform: scale(1) rotate(360deg);
             animation: spinCircle 3s ease-in-out infinite;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.8), 
-                        0 0 50px rgba(0, 102, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.8),
+                0 0 50px rgba(0, 102, 255, 0.4);
         }
 
         @keyframes spinCircle {
             0% {
                 transform: scale(1) rotate(0deg);
             }
+
             100% {
                 transform: scale(1) rotate(360deg);
             }
@@ -754,7 +899,7 @@
 
         .service-card:hover {
             transform: translateY(-12px) translateZ(20px);
-            box-shadow: 
+            box-shadow:
                 0 25px 50px rgba(0, 102, 255, 0.15),
                 0 10px 30px rgba(0, 242, 255, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -781,13 +926,13 @@
 
         .service-card:hover .service-icon {
             transform: translateY(-8px) rotateY(360deg) scale(1.15);
-            box-shadow: 
+            box-shadow:
                 0 15px 35px rgba(0, 242, 255, 0.4),
                 0 5px 15px rgba(0, 102, 255, 0.3);
-            background: linear-gradient(135deg, 
-                var(--secondary), 
-                var(--primary), 
-                var(--secondary));
+            background: linear-gradient(135deg,
+                    var(--secondary),
+                    var(--primary),
+                    var(--secondary));
         }
 
         .service-card h3 {
@@ -898,10 +1043,10 @@
         }
 
         .stat-box:active::before {
-            background: linear-gradient(135deg, 
-                rgba(0, 242, 255, 0.3) 0%, 
-                rgba(0, 102, 255, 0.4) 50%, 
-                rgba(0, 242, 255, 0.3) 100%);
+            background: linear-gradient(135deg,
+                    rgba(0, 242, 255, 0.3) 0%,
+                    rgba(0, 102, 255, 0.4) 50%,
+                    rgba(0, 242, 255, 0.3) 100%);
             left: 0;
             opacity: 1;
             animation: clickFade 0.6s ease-out;
@@ -914,12 +1059,12 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, 
-                transparent 0%, 
-                rgba(0, 242, 255, 0.1) 25%, 
-                rgba(0, 102, 255, 0.15) 50%, 
-                rgba(0, 242, 255, 0.1) 75%, 
-                transparent 100%);
+            background: linear-gradient(135deg,
+                    transparent 0%,
+                    rgba(0, 242, 255, 0.1) 25%,
+                    rgba(0, 102, 255, 0.15) 50%,
+                    rgba(0, 242, 255, 0.1) 75%,
+                    transparent 100%);
             transition: left 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             opacity: 0;
             z-index: 1;
@@ -950,7 +1095,7 @@
 
         .stat-box:hover {
             transform: translateY(-15px) translateZ(20px) scale(1.05);
-            box-shadow: 
+            box-shadow:
                 0 25px 50px rgba(0, 242, 255, 0.25),
                 0 10px 30px rgba(0, 102, 255, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.15);
@@ -970,7 +1115,7 @@
 
         .stat-box:hover .stat-icon {
             transform: translateY(-8px) rotateY(360deg) scale(1.25);
-            text-shadow: 
+            text-shadow:
                 0 0 25px rgba(0, 242, 255, 0.8),
                 0 0 50px rgba(0, 242, 255, 0.4);
             color: #ffffff;
@@ -995,7 +1140,7 @@
 
         .stat-box:hover .stat-number {
             color: var(--secondary);
-            text-shadow: 
+            text-shadow:
                 0 0 20px rgba(0, 242, 255, 0.6),
                 0 0 40px rgba(0, 242, 255, 0.3);
             transform: translateY(-3px) scale(1.05);
@@ -1077,10 +1222,10 @@
         }
 
         .industry-card:active::before {
-            background: linear-gradient(135deg, 
-                rgba(0, 242, 255, 0.3) 0%, 
-                rgba(0, 102, 255, 0.4) 50%, 
-                rgba(0, 242, 255, 0.3) 100%);
+            background: linear-gradient(135deg,
+                    rgba(0, 242, 255, 0.3) 0%,
+                    rgba(0, 102, 255, 0.4) 50%,
+                    rgba(0, 242, 255, 0.3) 100%);
             opacity: 1;
             animation: clickFade 0.6s ease-out;
         }
@@ -1092,10 +1237,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, 
-                rgba(0, 242, 255, 0.02) 0%, 
-                rgba(0, 102, 255, 0.05) 50%, 
-                rgba(0, 242, 255, 0.02) 100%);
+            background: linear-gradient(135deg,
+                    rgba(0, 242, 255, 0.02) 0%,
+                    rgba(0, 102, 255, 0.05) 50%,
+                    rgba(0, 242, 255, 0.02) 100%);
             opacity: 0;
             transition: opacity 0.4s ease;
             z-index: 1;
@@ -1126,13 +1271,13 @@
             opacity: 1;
             transform: scale(1) rotate(360deg);
             animation: spinCircle 3s ease-in-out infinite;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.8), 
-                        0 0 50px rgba(0, 102, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.8),
+                0 0 50px rgba(0, 102, 255, 0.4);
         }
 
         .industry-card:hover {
             transform: translateY(-10px) translateZ(15px);
-            box-shadow: 
+            box-shadow:
                 0 20px 40px rgba(0, 102, 255, 0.2),
                 0 8px 25px rgba(0, 242, 255, 0.15),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -1158,13 +1303,13 @@
 
         .industry-card:hover .industry-icon {
             transform: translateY(-8px) rotateZ(360deg) scale(1.1);
-            box-shadow: 
+            box-shadow:
                 0 12px 30px rgba(0, 242, 255, 0.35),
                 0 5px 15px rgba(0, 102, 255, 0.25);
-            background: linear-gradient(135deg, 
-                var(--secondary), 
-                var(--primary), 
-                var(--secondary));
+            background: linear-gradient(135deg,
+                    var(--secondary),
+                    var(--primary),
+                    var(--secondary));
         }
 
         .industry-card h3 {
@@ -1224,10 +1369,10 @@
         }
 
         .testimonial-card:active::before {
-            background: linear-gradient(135deg, 
-                rgba(0, 242, 255, 0.3) 0%, 
-                rgba(0, 102, 255, 0.4) 50%, 
-                rgba(0, 242, 255, 0.3) 100%);
+            background: linear-gradient(135deg,
+                    rgba(0, 242, 255, 0.3) 0%,
+                    rgba(0, 102, 255, 0.4) 50%,
+                    rgba(0, 242, 255, 0.3) 100%);
             opacity: 1;
             animation: clickFade 0.6s ease-out;
         }
@@ -1239,10 +1384,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, 
-                rgba(0, 102, 255, 0.03) 0%, 
-                rgba(0, 242, 255, 0.06) 50%, 
-                rgba(0, 102, 255, 0.03) 100%);
+            background: linear-gradient(135deg,
+                    rgba(0, 102, 255, 0.03) 0%,
+                    rgba(0, 242, 255, 0.06) 50%,
+                    rgba(0, 102, 255, 0.03) 100%);
             opacity: 0;
             transition: opacity 0.4s ease;
             z-index: 1;
@@ -1271,7 +1416,7 @@
 
         .testimonial-card:hover {
             transform: translateY(-12px) translateZ(20px) rotateX(2deg);
-            box-shadow: 
+            box-shadow:
                 0 25px 50px rgba(0, 102, 255, 0.25),
                 0 10px 30px rgba(0, 242, 255, 0.15),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -1625,7 +1770,8 @@
             margin-bottom: 20px;
             font-size: 1.3rem;
         }
-        .Set{
+
+        .Set {
             color: white !important;
         }
 
@@ -1693,98 +1839,6 @@
             color: var(--gray);
         }
 
-        /* Improved Scroll Down Element */
-        .scroll-down {
-            position: absolute;
-            top: 429px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            color: var(--secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
-            animation: bounce 2s infinite, 
-                       fadeInDelayed 2s ease-out 2s both,
-                       pulseGlow 3s ease-in-out 4s infinite;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% {
-                text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
-                filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.5));
-            }
-            50% {
-                text-shadow: 0 0 25px rgba(0, 242, 255, 1);
-                filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.8));
-            }
-        }
-
-        .scroll-down:hover {
-            transform: translateX(-50%) scale(1.15);
-            text-shadow: 0 0 30px rgba(0, 242, 255, 1);
-            filter: drop-shadow(0 0 25px rgba(0, 242, 255, 0.9));
-        }
-
-        @keyframes fadeInDelayed {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-
-        .scroll-text {
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-
-        .scroll-arrow {
-            font-size: 1.5rem;
-            animation: float 2s ease-in-out infinite;
-            transition: all 0.3s ease;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0) translateX(-50%);
-            }
-
-            40% {
-                transform: translateY(-10px) translateX(-50%);
-            }
-
-            60% {
-                transform: translateY(-5px) translateX(-50%);
-            }
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-        }
-
         /* Responsive Styles */
         @media (max-width: 992px) {
             .contact-container {
@@ -1794,36 +1848,65 @@
             .hero h1 {
                 font-size: 2.8rem;
             }
+
+            .hero {
+                height: 100vh;
+                min-height: 600px;
+            }
+
+            /* Slider navigation for tablets */
+            .slider-nav {
+                padding: 0 20px;
+            }
+
+            .prev-btn,
+            .next-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
         }
-
-
-
-
 
         @media (max-width: 768px) {
 
+            /* Slider responsive styles */
+            .slider-nav {
+                padding: 0 15px;
+            }
+
+            .prev-btn,
+            .next-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                background: rgba(0, 0, 0, 0.5);
+                border: 1px solid rgba(0, 242, 255, 0.5);
+            }
+
             .dropdown-scroll {
                 max-height: 250px;
-                /* Smaller scroll container for mobile */
             }
 
-            .scroll-down {
-
-                bottom: 90px;
+            .hero {
+                height: 100vh;
+                min-height: 500px;
+                position: relative;
             }
-
 
             .nav-links {
                 display: none;
-                position: absolute;
-                top: 100%;
+                position: fixed;
+                top: 0;
                 left: 0;
-                width: 100%;
-                background: var(--dark);
+                width: 100vw;
+                height: 100vh;
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(10px);
                 flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-                gap: 0;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                z-index: 999;
             }
 
             .nav-links.active {
@@ -1831,9 +1914,12 @@
             }
 
             .nav-links a {
-                width: 100%;
-                padding: 15px 20px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                width: auto;
+                padding: 15px 30px;
+                border-bottom: none;
+                font-size: 1.2rem;
+                color: var(--light);
+                text-align: center;
             }
 
             .nav-links a:hover,
@@ -1841,13 +1927,9 @@
                 color: var(--secondary);
             }
 
-            .nav-links a:focus {
-                outline: none;
-            }
-
             /* Mobile dropdown styles */
             .dropdown {
-                width: 100%;
+                width: auto;
             }
 
             .dropdown-content {
@@ -1858,7 +1940,7 @@
                 border-radius: 8px;
                 margin: 10px 0;
                 display: none;
-                width: 100%;
+                width: 250px;
                 padding: 8px 0;
             }
 
@@ -1867,37 +1949,50 @@
             }
 
             .dropdown-toggle {
-                justify-content: space-between;
+                justify-content: center;
                 padding: 15px 20px;
+                gap: 10px;
             }
 
             .dropdown-content a {
-                padding: 12px 40px;
-                font-size: 0.9rem;
-                margin: 2px 15px;
+                padding: 12px 20px;
+                font-size: 0.95rem;
+                margin: 2px 5px;
             }
 
             .mobile-menu-btn {
                 display: block;
+                position: fixed;
+                top: 25px;
+                right: 25px;
+                z-index: 1000;
+                background: none;
+                border: none;
+                color: var(--light);
+                font-size: 1.8rem;
             }
 
             .hero h1 {
                 font-size: 2.2rem;
+                line-height: 1.2;
             }
 
             .hero p {
                 font-size: 1.1rem;
+                margin-bottom: 2rem;
             }
 
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 15px;
             }
 
             .secondary-button {
                 width: 100%;
                 max-width: 250px;
                 text-align: center;
+                padding: 15px 25px;
             }
 
             .section-title {
@@ -1908,19 +2003,29 @@
             .section-header h2 {
                 font-size: 2rem;
             }
+
+            .hero-content {
+                padding: 0 15px;
+                max-width: 100%;
+            }
         }
 
         @media (max-width: 576px) {
-
             .hero {
-
-                height: 108vh;
-
+                height: 100vh;
+                min-height: 500px;
+                display: flex;
+                align-items: center;
             }
 
-            .scroll-down {
+            .hero h1 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
 
-                bottom: -79px;
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
             }
 
             .services-grid,
@@ -1935,6 +2040,32 @@
 
             .footer-container {
                 grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                padding: 0 10px;
+                text-align: center;
+            }
+
+            .mobile-menu-btn {
+                top: 20px;
+                right: 20px;
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .secondary-button {
+                padding: 12px 20px;
+                font-size: 0.9rem;
             }
         }
 
@@ -1975,32 +2106,58 @@
 
         /* Additional Professional Animations */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 5px var(--secondary); }
-            50% { box-shadow: 0 0 20px var(--secondary), 0 0 30px var(--secondary); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px var(--secondary);
+            }
+
+            50% {
+                box-shadow: 0 0 20px var(--secondary), 0 0 30px var(--secondary);
+            }
         }
 
         @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
         }
 
         /* Enhanced hover effects for buttons */
-        .cta-buttons, .submit-btn {
+        .cta-buttons,
+        .submit-btn {
             position: relative;
             overflow: hidden;
         }
 
-        .cta-buttons::after, .submit-btn::after {
+        .cta-buttons::after,
+        .submit-btn::after {
             content: '';
             position: absolute;
             top: 0;
@@ -2011,7 +2168,8 @@
             transition: left 0.5s ease;
         }
 
-        .cta-buttons:hover::after, .submit-btn:hover::after {
+        .cta-buttons:hover::after,
+        .submit-btn:hover::after {
             left: 100%;
         }
 
@@ -2026,9 +2184,17 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         /* Smooth page transitions */
@@ -2038,7 +2204,10 @@
         }
 
         /* Enhanced focus states for accessibility */
-        a:focus, button:focus, input:focus, textarea:focus {
+        a:focus,
+        button:focus,
+        input:focus,
+        textarea:focus {
             outline: 2px solid var(--secondary);
             outline-offset: 2px;
             transition: outline 0.2s ease;
@@ -2064,7 +2233,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -2086,7 +2257,9 @@
     <header id="header">
         <div class="container">
             <nav>
-                <a href="index.html" class="logo">Zoni<span>x</span><span class="tech">tec</span></a>
+                <a href="index.html" class="logo">
+                    <img src="./Assets/Logo.svg" alt="Zonixtec Logo" style="height: 40px; width: auto;">
+                </a>
                 <div class="nav-links">
                     <a href="index.html" class="active">Home</a>
                     <a href="aboutus.html">About</a>
@@ -2122,28 +2295,107 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Slider -->
     <section class="hero" id="home">
-        <div class="hero-background"></div>
+        <!-- Background Videos for different slides -->
+        <video class="hero-bg-video active" id="video1" autoplay muted loop playsinline>
+            <source src="./Assets/home.mp4" type="video/mp4">
+        </video>
+        <video class="hero-bg-video" id="video2" autoplay muted loop playsinline>
+            <source src="./Assets/home2.mp4" type="video/mp4">
+        </video>
+        <video class="hero-bg-video" id="video3" autoplay muted loop playsinline>
+            <source src="./Assets/zk.mp4" type="video/mp4">
+        </video>
+        <video class="hero-bg-video" id="video4" autoplay muted loop playsinline>
+            <source src="./Assets/home.mp4" type="video/mp4">
+        </video>
         <div class="hero-overlay"></div>
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Transform Ideas into Powerful Digital Solutions</h1>
-                    <p>From CRM and ERP solutions to Billing Software, Mobile Applications, and Website Development,
-                        Zonixtec helps startups and businesses innovate, scale, and succeed.</p>
-                    <div class="hero-buttons">
-                        <a href="Services.html" class="secondary-button">Explore our Services</a>
-                        <a href="contact.html" class="secondary-button">Let's Build Together</a>
+
+        <!-- Slider Container -->
+        <div class="hero-slider">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1>Transform Ideas into Powerful Digital Solutions</h1>
+                            <p>From CRM and ERP solutions to Billing Software, Mobile Applications, and Website
+                                Development,
+                                Zonixtec helps startups and businesses innovate, scale, and succeed.</p>
+                            <div class="hero-buttons">
+                                <a href="Services.html" class="secondary-button">Explore our Services</a>
+                                <a href="contact.html" class="secondary-button">Let's Build Together</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id="scrollDownBtn" class="scroll-down">
-                <span class="scroll-text">Scroll Down</span>
-                <span class="scroll-arrow">↓</span>
+
+            <!-- Slide 2 -->
+            <div class="slide">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1>AI-Powered Solutions for Modern Businesses</h1>
+                            <p>Leverage cutting-edge Artificial Intelligence and Machine Learning technologies to
+                                automate processes,
+                                enhance decision-making, and drive unprecedented growth in your business.</p>
+                            <div class="hero-buttons">
+                                <a href="AIServices.html" class="secondary-button">Discover AI Solutions</a>
+                                <a href="contact.html" class="secondary-button">Get AI Consultation</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1>Smart Billing Software for Modern Businesses</h1>
+                            <p>Simplify invoicing, manage payments, and track your business finances all in one place.
+                                Our cloud-based billing system helps you automate operations, save time, and get paid
+                                faster.</p>
+                            <div class="hero-buttons">
+                                <a href="Billing-invoice.html" class="secondary-button">Explore Cloud Services</a>
+                                <a href="contact.html" class="secondary-button">Start Cloud Journey</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="slide">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1>Custom Software Built for Your Success</h1>
+                            <p>Get tailor-made software solutions that perfectly fit your business needs. From CRM
+                                systems
+                                to mobile apps, we build technology that drives real results and measurable growth.</p>
+                            <div class="hero-buttons">
+                                <a href="CustomSoftware.html" class="secondary-button">View Our Work</a>
+                                <a href="contact.html" class="secondary-button">Request Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Slider Navigation -->
+        <div class="slider-nav">
+            <button class="prev-btn" onclick="changeSlide(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="next-btn" onclick="changeSlide(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
     </section>
 
     <!-- About Us Section -->
@@ -2441,11 +2693,10 @@
                         <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
                         <h3 class="client-name">EasyEAuction</h3>
                         <p class="client-position">EasyEAuction Platform</p>
-                        <p class="testimonial-quote">"Zonixtec developed our comprehensive auction management web
-                            platform that revolutionized how we conduct online auctions. Their expertise in building
-                            scalable auction systems with real-time bidding, automated notifications, exceeded our
-                            expectations. The user-friendly interface and robust backend have made EasyEAuction a market
-                            leader."</p>
+                        <p class="testimonial-quote">"Zonixtec’s Auction Management System helped us automate 80% of our
+                            auction operations. The platform made real-time bidding smooth and error-free, cutting down
+                            manual effort by 30+ hours each week. Their team’s proactive support and genuine care made
+                            the whole experience seamless and stress-free"</p>
                         <div class="rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -2465,17 +2716,17 @@
                         <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
                         <h3 class="client-name">Morya Cars</h3>
                         <p class="client-position">Car Management Platform</p>
-                        <p class="testimonial-quote">"Zonixtec developed a powerful business management website for
-                            Morya Cars that allows us to store and manage all our cars, monitor live car status, track
-                            expenditures, and calculate profits. The system makes it easy to record every expense
-                            related to each car and view overall business performance in real time. Their solution has
-                            truly simplified our operations."</p>
+                        <p class="testimonial-quote">"Zonixtec developed a CRM system that transformed how we manage the
+                            buying and selling of pre-owned vehicles. Tracking leads, customers, and inventory has
+                            become effortless. Within three months, our sales efficiency improved by 45%, and we saved
+                            over ₹1 lakh in operational costs. Their team truly understood our business and delivered a
+                            solution that drives real results"</p>
                         <div class="rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <!-- <i class="fas fa-star"></i> -->
                         </div>
                         <div class="project-details">
                             <p class="project-title">Project: Car Business Management Website</p>
@@ -2489,14 +2740,10 @@
                         <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
                         <h3 class="client-name">Cobbler Management Services</h3>
                         <p class="client-position">CRM & Business Automation System</p>
-                        <p class="testimonial-quote">"Zonixtec built a complete CRM platform for our Cobbler Management
-                            Services that has transformed how we handle customer inquiries, service tracking, and
-                            billing. The system allows us to record each service request, maintain a detailed product
-                            service history, and generate invoices with ease. It also includes expenditure management
-                            and real-time profit calculation through an integrated inventory system. One of the best
-                            features is the automated WhatsApp updates that notify customers about their product’s
-                            current status at every stage. This CRM has made our operations smoother and our customer
-                            communication effortless."</p>
+                        <p class="testimonial-quote">""Working with Zonixtec was a game-changer for us. The Cobbler CRM
+                            they built reduced our manual tracking time by 40% and improved customer follow-ups by 50%.
+                            What I loved most was their patience and commitment to understanding our small business
+                            challenges—it truly felt like they were part of our team"</p>
                         <div class="rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -2725,27 +2972,34 @@
 
     <script>
         // Header animation on load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const header = document.getElementById('header');
             header.classList.add('loaded');
         });
 
-        // Scroll Animation Observer
+        // Scroll Animation Observer with performance optimization
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
 
-        const observer = new IntersectionObserver(function(entries) {
+        const observer = new IntersectionObserver(function (entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    // Use requestAnimationFrame to prevent layout thrashing
+                    requestAnimationFrame(() => {
+                        entry.target.classList.add('visible');
+                    });
                 }
             });
         }, observerOptions);
 
         // Observe all animation elements when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            // Throttle animations on mobile for better performance
+            const isMobile = window.innerWidth <= 768;
+            const animationDelay = isMobile ? 0.05 : 0.1;
+
             // Add animation classes to elements
             const sections = document.querySelectorAll('section');
             sections.forEach((section, index) => {
@@ -2757,10 +3011,11 @@
                 observer.observe(section);
             });
 
-            // Service cards animation
+            // Service cards animation with mobile optimization
             const serviceCards = document.querySelectorAll('.service-card');
             serviceCards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
+                const delay = isMobile ? index * animationDelay : index * 0.1;
+                card.style.animationDelay = `${delay}s`;
                 card.classList.add('scale-in');
                 observer.observe(card);
             });
@@ -2768,7 +3023,8 @@
             // Stat boxes animation
             const statBoxes = document.querySelectorAll('.stat-box');
             statBoxes.forEach((box, index) => {
-                box.style.animationDelay = `${index * 0.2}s`;
+                const delay = isMobile ? index * animationDelay : index * 0.2;
+                box.style.animationDelay = `${delay}s`;
                 box.classList.add('bounce-in');
                 observer.observe(box);
             });
@@ -2776,7 +3032,8 @@
             // Testimonial cards animation
             const testimonialCards = document.querySelectorAll('.testimonial-card');
             testimonialCards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.15}s`;
+                const delay = isMobile ? index * animationDelay : index * 0.15;
+                card.style.animationDelay = `${delay}s`;
                 card.classList.add('slide-in-right');
                 observer.observe(card);
             });
@@ -2784,7 +3041,8 @@
             // Industry cards animation
             const industryCards = document.querySelectorAll('.industry-card');
             industryCards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
+                const delay = isMobile ? index * animationDelay : index * 0.1;
+                card.style.animationDelay = `${delay}s`;
                 card.classList.add('fade-in');
                 observer.observe(card);
             });
@@ -2819,7 +3077,7 @@
         }
 
         // Trigger number animation when stats come into view
-        const statsObserver = new IntersectionObserver(function(entries) {
+        const statsObserver = new IntersectionObserver(function (entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const statNumbers = entry.target.querySelectorAll('.stat-number');
@@ -2835,17 +3093,50 @@
             });
         }, { threshold: 0.5 });
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const statsSection = document.querySelector('.stats');
             if (statsSection) {
                 statsObserver.observe(statsSection);
             }
         });
 
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function () {
-            document.querySelector('.nav-links').classList.toggle('active');
-            document.querySelector('body').classList.toggle('menu-open');
+        // Mobile menu toggle with improved functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            const body = document.body;
+
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    navLinks.classList.toggle('active');
+                    body.classList.toggle('menu-open');
+
+                    // Prevent scroll when menu is open
+                    if (navLinks.classList.contains('active')) {
+                        body.style.overflow = 'hidden';
+                    } else {
+                        body.style.overflow = '';
+                    }
+                });
+
+                // Close menu when clicking on a link
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function () {
+                        navLinks.classList.remove('active');
+                        body.classList.remove('menu-open');
+                        body.style.overflow = '';
+                    });
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function (e) {
+                    if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        navLinks.classList.remove('active');
+                        body.classList.remove('menu-open');
+                        body.style.overflow = '';
+                    }
+                });
+            }
         });
 
         // Header scroll effect
@@ -2858,30 +3149,47 @@
             }
         });
 
-        // Mobile dropdown functionality
+        // Mobile dropdown functionality with improved responsive behavior
         document.addEventListener('DOMContentLoaded', function () {
             const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
 
             dropdownToggles.forEach(toggle => {
                 toggle.addEventListener('click', function (e) {
+                    // Always prevent default on mobile dropdown toggles
                     if (window.innerWidth <= 768) {
                         e.preventDefault();
-                        const dropdown = this.parentElement;
-                        dropdown.classList.toggle('active');
+                        e.stopPropagation();
 
-                        // Close other dropdowns
+                        const dropdown = this.parentElement;
+                        const isActive = dropdown.classList.contains('active');
+
+                        // Close all other dropdowns
                         document.querySelectorAll('.dropdown').forEach(otherDropdown => {
                             if (otherDropdown !== dropdown) {
                                 otherDropdown.classList.remove('active');
                             }
                         });
+
+                        // Toggle current dropdown
+                        dropdown.classList.toggle('active', !isActive);
                     }
                 });
             });
 
-            // Close dropdowns when clicking outside
+            // Close dropdowns when clicking outside on mobile
             document.addEventListener('click', function (e) {
-                if (!e.target.closest('.dropdown') && !e.target.closest('.mobile-menu-btn')) {
+                if (window.innerWidth <= 768) {
+                    if (!e.target.closest('.dropdown') && !e.target.closest('.mobile-menu-btn')) {
+                        document.querySelectorAll('.dropdown').forEach(dropdown => {
+                            dropdown.classList.remove('active');
+                        });
+                    }
+                }
+            });
+
+            // Handle window resize to reset dropdowns
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) {
                     document.querySelectorAll('.dropdown').forEach(dropdown => {
                         dropdown.classList.remove('active');
                     });
@@ -3013,22 +3321,6 @@
             }, 1000);
         });
 
-        // Scroll down functionality
-        document.getElementById('scrollDownBtn').addEventListener('click', function () {
-            document.getElementById('about').scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-
-        // Optional: Add keyboard support for accessibility
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'ArrowDown' && window.scrollY === 0) {
-                document.getElementById('about').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-
         // Footer dropdown functionality
         document.querySelectorAll('.footer-dropdown-header').forEach(header => {
             header.addEventListener('click', () => {
@@ -3036,6 +3328,243 @@
                 parent.classList.toggle('open');
             });
         });
+
+        // Viewport height fix for mobile
+        function setVh() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        setVh();
+        window.addEventListener('resize', setVh);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(setVh, 100);
+        });
+
+        // Prevent layout shifts during animations
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add loaded class to prevent FOUC
+            document.body.classList.add('loaded');
+
+            // Add a small delay before starting animations to ensure layout is stable
+            setTimeout(() => {
+                document.body.classList.add('animations-ready');
+            }, 100);
+        });
+
+        // Hero Slider Functionality with Video Switching
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const videos = document.querySelectorAll('.hero-bg-video');
+        const totalSlides = slides.length;
+        let autoSlideInterval;
+
+        // Function to show specific slide and change video
+        function showSlide(index) {
+            // Remove active class from all slides and videos
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active', 'prev');
+                if (i !== index) {
+                    slide.style.opacity = '0';
+                    slide.style.transform = 'translateX(100%)';
+                }
+            });
+            videos.forEach(video => {
+                video.classList.remove('active');
+            });
+
+            // Calculate previous slide index
+            const prevIndex = currentSlideIndex;
+            currentSlideIndex = index;
+
+            // Add appropriate classes for slides with smooth animation
+            if (slides[currentSlideIndex]) {
+                slides[currentSlideIndex].classList.add('active');
+                slides[currentSlideIndex].style.opacity = '1';
+                slides[currentSlideIndex].style.transform = 'translateX(0)';
+
+                // Add prev class to previous slide for smooth transition
+                if (slides[prevIndex] && prevIndex !== currentSlideIndex) {
+                    slides[prevIndex].classList.add('prev');
+                    slides[prevIndex].style.transform = 'translateX(-100%)';
+                }
+            }
+
+            // Change background video with fade effect
+            if (videos[currentSlideIndex]) {
+                // Pause all other videos
+                videos.forEach((video, i) => {
+                    if (i !== currentSlideIndex) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+
+                // Activate and play current video
+                videos[currentSlideIndex].classList.add('active');
+                videos[currentSlideIndex].currentTime = 0;
+                videos[currentSlideIndex].play().catch(err => {
+                    console.log('Video autoplay failed:', err);
+                });
+            }
+
+            // Add visual feedback for slide change
+            const heroSection = document.querySelector('.hero');
+            if (heroSection) {
+                heroSection.style.transform = 'scale(1.005)';
+                setTimeout(() => {
+                    heroSection.style.transform = 'scale(1)';
+                }, 300);
+            }
+        }
+
+        // Function to go to next slide
+        function nextSlide() {
+            const nextIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(nextIndex);
+        }
+
+        // Function to go to previous slide
+        function prevSlide() {
+            const prevIndex = currentSlideIndex === 0 ? totalSlides - 1 : currentSlideIndex - 1;
+            showSlide(prevIndex);
+        }
+
+        // Function called by navigation buttons
+        function changeSlide(direction) {
+            if (direction === 1) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }
+
+        // Auto-play slider
+        function startAutoSlide() {
+            return setInterval(() => {
+                nextSlide();
+            }, 5000); // Change slide every 5 seconds
+        }
+
+        // Initialize slider when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize videos - preload all videos
+            videos.forEach((video, index) => {
+                video.load();
+                video.muted = true; // Ensure videos are muted for autoplay
+                if (index !== 0) {
+                    video.pause();
+                }
+            });
+
+            // Start auto-play
+            let autoSlideInterval = startAutoSlide();
+
+            // Enhanced pause/resume functionality
+            const heroSection = document.querySelector('.hero');
+            const sliderControls = document.querySelectorAll('.prev-btn, .next-btn');
+            
+            if (heroSection) {
+                // Pause on hover
+                heroSection.addEventListener('mouseenter', () => {
+                    clearInterval(autoSlideInterval);
+                });
+
+                // Resume on mouse leave
+                heroSection.addEventListener('mouseleave', () => {
+                    autoSlideInterval = startAutoSlide();
+                });
+
+                // Pause when user interacts with controls
+                sliderControls.forEach(control => {
+                    control.addEventListener('click', () => {
+                        clearInterval(autoSlideInterval);
+                        // Resume after 3 seconds of inactivity
+                        setTimeout(() => {
+                            autoSlideInterval = startAutoSlide();
+                        }, 3000);
+                    });
+                });
+
+                // Pause when page is not visible
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        clearInterval(autoSlideInterval);
+                        videos.forEach(video => video.pause());
+                    } else {
+                        autoSlideInterval = startAutoSlide();
+                        // Resume current video
+                        if (videos[currentSlideIndex]) {
+                            videos[currentSlideIndex].play().catch(err => {
+                                console.log('Video autoplay failed:', err);
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Enhanced keyboard navigation
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevSlide();
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = startAutoSlide();
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    nextSlide();
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = startAutoSlide();
+                } else if (e.key === ' ') { // Spacebar to pause/resume
+                    e.preventDefault();
+                    if (autoSlideInterval) {
+                        clearInterval(autoSlideInterval);
+                        autoSlideInterval = null;
+                    } else {
+                        autoSlideInterval = startAutoSlide();
+                    }
+                }
+            });
+
+            // Enhanced touch/swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let touchStartY = 0;
+            let touchEndY = 0;
+
+            heroSection?.addEventListener('touchstart', function (e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+
+            heroSection?.addEventListener('touchend', function (e) {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }, { passive: true });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diffX = touchStartX - touchEndX;
+                const diffY = Math.abs(touchStartY - touchEndY);
+
+                // Only trigger swipe if horizontal movement is greater than vertical
+                if (Math.abs(diffX) > swipeThreshold && diffY < swipeThreshold) {
+                    if (diffX > 0) {
+                        // Swiped left - go to next slide
+                        nextSlide();
+                    } else {
+                        // Swiped right - go to previous slide
+                        prevSlide();
+                    }
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = startAutoSlide();
+                }
+            }
+        });
+
+        // Make functions global for onclick handlers
+        window.changeSlide = changeSlide;
     </script>
 
 
