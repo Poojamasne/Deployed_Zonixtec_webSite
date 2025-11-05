@@ -292,10 +292,7 @@
         }
 
         /* Ensure proper touch target sizes */
-        @media (max-width: 768px) {
-
-          
-        }
+        @media (max-width: 768px) {}
 
         /* Hero Section with Video Background and Slider */
         .hero {
@@ -1478,6 +1475,58 @@
             font-weight: 500;
         }
 
+
+
+
+
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(15px);
+            min-width: 280px;
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            z-index: 1000;
+            padding: 8px 0;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: 4px solid transparent;
+            margin: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+            transform: translateX(5px);
+        }
+
+
+
+
+
+
         .form-control {
             width: 100%;
             padding: 12px 15px;
@@ -1633,6 +1682,46 @@
 
         @media (max-width: 768px) {
 
+
+
+
+            .dropdown-content {
+                position: static;
+                background: rgba(15, 23, 42, 0.9);
+                box-shadow: none;
+                border: 1px solid rgba(100, 116, 139, 0.2);
+                border-radius: 8px;
+                margin: 10px 0;
+                display: none;
+                width: 100%;
+                padding: 8px 0;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .dropdown-toggle {
+                justify-content: space-between;
+                padding: 15px 30px;
+            }
+
+            .dropdown-content a {
+                padding: 12px 40px;
+                font-size: 0.9rem;
+                margin: 2px 15px;
+            }
+
+
+            .footer-dropdown-content {
+                display: none;
+                margin-left: 15px;
+            }
+
+            .footer-dropdown.open .footer-dropdown-content {
+                display: block;
+            }
+
             /* Slider responsive styles */
             .slider-nav {
                 padding: 0 15px;
@@ -1653,12 +1742,12 @@
                 position: relative;
             }
 
-           
 
-            
+
+
 
             /* Mobile dropdown styles */
-           
+
 
             .hero h1 {
                 font-size: 2.2rem;
@@ -2041,12 +2130,29 @@
         }
 
         @keyframes progressBar {
-            0% { width: 0; }
-            20% { width: 40px; }
-            40% { width: 80px; }
-            60% { width: 120px; }
-            80% { width: 160px; }
-            100% { width: 200px; }
+            0% {
+                width: 0;
+            }
+
+            20% {
+                width: 40px;
+            }
+
+            40% {
+                width: 80px;
+            }
+
+            60% {
+                width: 120px;
+            }
+
+            80% {
+                width: 160px;
+            }
+
+            100% {
+                width: 200px;
+            }
         }
 
         /* Responsive Design */
@@ -2161,9 +2267,12 @@
         }
 
         @keyframes pulse-glow {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
             }
+
             50% {
                 box-shadow: 0 8px 35px rgba(0, 242, 255, 0.6);
             }
@@ -2227,6 +2336,7 @@
                 opacity: 0;
                 transform: translateY(80px) scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -2412,6 +2522,7 @@
                 opacity: 0;
                 transform: translate(-50%, -50%) scale(0.5);
             }
+
             100% {
                 opacity: 1;
                 transform: translate(-50%, -50%) scale(1);
@@ -2604,8 +2715,9 @@
                         <i class="fas fa-phone-alt"></i>Book A 30 Min Call
                     </a>
                 </div>
-                
-                <button class="mobile-menu-btn" aria-label="Toggle mobile menu" onclick="window.toggleMobileMenu && window.toggleMobileMenu()">
+
+                <button class="mobile-menu-btn" aria-label="Toggle mobile menu"
+                    onclick="window.toggleMobileMenu && window.toggleMobileMenu()">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -2723,8 +2835,10 @@
             <h2><strong>First</strong>, we established our <em>foundation</em></h2>
             <div class="scroll-text">
                 <img src="./Assets/aboutus1.webp" alt="Zonixtec Foundation">
-                <p>We started <code class="selector">Zonixtec</code> with a simple mission: to bridge the gap between businesses and cutting-edge technology.</p>
-                <p>Our journey began with passionate developers who believed that <code class="property">technology should empower</code>, not complicate business operations.</p>
+                <p>We started <code class="selector">Zonixtec</code> with a simple mission: to bridge the gap between
+                    businesses and cutting-edge technology.</p>
+                <p>Our journey began with passionate developers who believed that <code
+                        class="property">technology should empower</code>, not complicate business operations.</p>
             </div>
         </div>
     </section>
@@ -2734,8 +2848,13 @@
             <h2><strong>Next</strong>, we focused on <em>innovation</em></h2>
             <div class="scroll-text">
                 <img src="./Assets/aboutus1.webp" alt="Innovation at Zonixtec">
-                <p>We embrace <code class="property">AI technologies</code> and <code class="property">modern development practices</code> to create solutions that scale with your business growth.</p>
-                <p>Our team continuously explores emerging technologies like <code class="selector">Machine Learning</code>, <code class="selector">Cloud Computing</code>, and <code class="selector">Process Automation</code>.</p>
+                <p>We embrace <code class="property">AI technologies</code> and <code
+                        class="property">modern development practices</code> to create solutions that scale with your
+                    business growth.</p>
+                <p>Our team continuously explores emerging technologies like <code
+                        class="selector">Machine Learning</code>, <code class="selector">Cloud Computing</code>, and
+                    <code class="selector">Process Automation</code>.
+                </p>
             </div>
         </div>
     </section>
@@ -2745,8 +2864,12 @@
             <h2><strong>Then</strong>, we committed to <em>excellence</em></h2>
             <div class="scroll-text">
                 <img src="./Assets/aboutus1.webp" alt="Excellence in Development">
-                <p>Every project we deliver is built with <code class="property">precision</code>, <code class="property">scalability</code>, and <code class="property">user-centric design</code> principles.</p>
-                <p>From <code class="selector">custom CRM solutions</code> to <code class="selector">AI-powered applications</code>, we ensure each solution meets the highest standards.</p>
+                <p>Every project we deliver is built with <code class="property">precision</code>, <code
+                        class="property">scalability</code>, and <code class="property">user-centric design</code>
+                    principles.</p>
+                <p>From <code class="selector">custom CRM solutions</code> to <code
+                        class="selector">AI-powered applications</code>, we ensure each solution meets the highest
+                    standards.</p>
             </div>
         </div>
     </section>
@@ -2756,8 +2879,12 @@
             <h2><strong>Now</strong>, we shape the <em>future</em></h2>
             <div class="scroll-text">
                 <img src="./Assets/aboutus1.webp" alt="Future Technology">
-                <p>We're not just building software; we're crafting <code class="property">digital experiences</code> that transform how businesses operate and grow.</p>
-                <p>Our expertise spans across <code class="selector">web development</code>, <code class="selector">mobile applications</code>, <code class="selector">AI consulting</code>, and <code class="selector">cloud solutions</code>.</p>
+                <p>We're not just building software; we're crafting <code class="property">digital experiences</code>
+                    that transform how businesses operate and grow.</p>
+                <p>Our expertise spans across <code class="selector">web development</code>, <code
+                        class="selector">mobile applications</code>, <code class="selector">AI consulting</code>, and
+                    <code class="selector">cloud solutions</code>.
+                </p>
             </div>
         </div>
     </section>
@@ -2771,7 +2898,8 @@
                     <li>Build solutions that <strong>solve real problems</strong> and deliver measurable results</li>
                     <li>Create technology that is intuitive, scalable, and future-ready</li>
                     <li>Partner with businesses to drive growth through digital innovation</li>
-                    <li>Deliver <strong>CRM, ERP, Billing Software, Website Development</strong>, and Mobile Applications</li>
+                    <li>Deliver <strong>CRM, ERP, Billing Software, Website Development</strong>, and Mobile
+                        Applications</li>
                     <li>Make businesses <strong>smarter, faster, and future-ready</strong></li>
                 </ul>
             </div>
@@ -2866,7 +2994,7 @@
     </section>
 
     <!-- Stats Section -->
-    
+
 
     <!-- Industries Section -->
     <section class="industries section-padding" id="industries">
@@ -3050,7 +3178,7 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -3665,7 +3793,7 @@
             // Enhanced pause/resume functionality
             const heroSection = document.querySelector('.hero');
             const sliderControls = document.querySelectorAll('.prev-btn, .next-btn');
-            
+
             if (heroSection) {
                 // Pause on hover
                 heroSection.addEventListener('mouseenter', () => {
@@ -3775,7 +3903,7 @@
             <button class="close-modal" onclick="closeBookingModal()">
                 <i class="fas fa-times"></i>
             </button>
-            
+
             <div class="modal-header">
                 <h2>Book Your Free 30-Minute Consultation</h2>
                 <p>Let's discuss how we can help transform your business</p>
@@ -3846,7 +3974,7 @@
 
     <!-- Success Message Overlay -->
     <div class="success-message" id="bookingSuccess">
-        <i class="fas fa-check-circle"></i> 
+        <i class="fas fa-check-circle"></i>
         <strong>Your Call is Booked!</strong>
         <p>Our team will connect with you as soon as possible. Thank you for choosing Zonixtec!</p>
     </div>
@@ -3857,7 +3985,7 @@
             const modal = document.getElementById('bookingModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
+
             // Set minimum date to today
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('bookingDate').setAttribute('min', today);
@@ -3870,21 +3998,21 @@
         }
 
         // Close modal when clicking outside
-        document.getElementById('bookingModal')?.addEventListener('click', function(e) {
+        document.getElementById('bookingModal')?.addEventListener('click', function (e) {
             if (e.target === this) {
                 closeBookingModal();
             }
         });
 
         // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 closeBookingModal();
             }
         });
 
         // Handle booking form submission
-        document.getElementById('bookingForm')?.addEventListener('submit', async function(e) {
+        document.getElementById('bookingForm')?.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const submitBtn = this.querySelector('.submit-booking-btn');
@@ -3909,10 +4037,10 @@
             try {
                 // Send to database API
                 const apiPath = 'https://zonixtec.com/server/booking/save-booking.php';
-                
+
                 console.log('📤 Sending booking to:', apiPath);
                 console.log('📋 Data:', bookingData);
-                
+
                 const response = await fetch(apiPath, {
                     method: 'POST',
                     headers: {
@@ -3922,7 +4050,7 @@
                 });
 
                 console.log('📡 Response status:', response.status);
-                
+
                 const result = await response.json();
                 console.log('� Response data:', result);
 
@@ -3959,7 +4087,7 @@
 
     <!-- About Section Auto-Scroll Animation -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const scrollItems = document.querySelectorAll('.scroll-content-item');
             let currentIndex = 0;
             let autoScrollInterval;
@@ -3967,12 +4095,12 @@
             function showSlide(index) {
                 // Remove active class from all items
                 scrollItems.forEach(item => item.classList.remove('active'));
-                
+
                 // Add active class to current item
                 if (scrollItems[index]) {
                     scrollItems[index].classList.add('active');
                 }
-                
+
                 currentIndex = index;
             }
 
@@ -4014,9 +4142,91 @@
         });
     </script>
 
+
+    <script>
+       document.addEventListener('DOMContentLoaded', function () {
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+            // ——— DESKTOP: Hover (mouseenter/leave) ———
+            dropdownToggles.forEach(toggle => {
+                const dropdown = toggle.parentElement;
+
+                // Open on hover (desktop only)
+                toggle.addEventListener('mouseenter', () => {
+                    if (window.innerWidth > 768) {
+                        closeAllDropdownsExcept(dropdown);
+                        dropdown.classList.add('active');
+                    }
+                });
+
+                // Close when leaving dropdown area
+                dropdown.addEventListener('mouseleave', () => {
+                    if (window.innerWidth > 768) {
+                        dropdown.classList.remove('active');
+                    }
+                });
+            });
+
+            // ——— MOBILE: Click to toggle ———
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function (e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault(); // Prevent navigation
+                        const dropdown = this.parentElement;
+
+                        const isActive = dropdown.classList.contains('active');
+                        closeAllDropdowns(); // Close others first
+
+                        if (!isActive) {
+                            dropdown.classList.add('active');
+                        }
+                    }
+                });
+            });
+
+            // ——— CLOSE WHEN CLICKING OUTSIDE ———
+            document.addEventListener('click', function (e) {
+                const clickedInsideDropdown = e.target.closest('.dropdown');
+                const clickedMenuBtn = e.target.closest('.mobile-menu-btn');
+
+                if (!clickedInsideDropdown && !clickedMenuBtn) {
+                    closeAllDropdowns();
+                }
+            });
+
+            // ——— HELPER: Close all dropdowns (optionally exclude one) ———
+            function closeAllDropdownsExcept(exclude = null) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    if (dropdown !== exclude) {
+                        dropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            function closeAllDropdowns() {
+                closeAllDropdownsExcept();
+            }
+
+            // ——— OPTIONAL: Close on Escape key ———
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') {
+                    closeAllDropdowns();
+                }
+            });
+
+            // ——— OPTIONAL: Close on resize to desktop ———
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    closeAllDropdowns();
+                }
+            });
+        });
+
+    </script>
+
     <script src="Customscroll.js"></script>
     <script src="script/navbar.js"></script>
-    
+
     <!-- Chatbot -->
     <link rel="stylesheet" href="./CSS/chatbot.css">
     <script src="./script/chatbot.js"></script>
@@ -4024,4 +4234,3 @@
 </body>
 
 </html>
-

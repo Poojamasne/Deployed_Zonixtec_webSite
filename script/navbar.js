@@ -1,90 +1,91 @@
-// Navbar JavaScript - Mobile Menu Toggle and Scroll Effects
 
-// Toggle mobile menu
-window.toggleMobileMenu = function() {
-    const navLinks = document.querySelector('.nav-links');
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const body = document.body;
-    
-    if (navLinks) {
-        navLinks.classList.toggle('active');
-    }
-    
-    if (mobileMenuBtn) {
-        mobileMenuBtn.classList.toggle('active');
-    }
-    
-    // Prevent body scroll when menu is open
-    body.classList.toggle('menu-open');
-};
 
-// Mobile dropdown toggle
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdowns = document.querySelectorAll('.dropdown');
-    
-    dropdowns.forEach(dropdown => {
-        const toggle = dropdown.querySelector('.dropdown-toggle');
-        
-        if (toggle) {
-            toggle.addEventListener('click', function(e) {
-                // Only toggle on mobile
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    dropdown.classList.toggle('active');
-                }
-            });
-        }
+/* ============================================================= */
+/* navbar.js – Mobile menu + dropdown handling (no hover on mobile) */
+/* ============================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const mobileBtn   = document.querySelector('.mobile-menu-btn');
+  const navLinks    = document.querySelector('.nav-links');
+  const hamburger   = mobileBtn?.querySelectorAll('.hamburger-line') || [];
+  const dropdowns   = document.querySelectorAll('.dropdown');
+  const body        = document.body;
+
+  /* ---------- 1. Mobile menu toggle ---------- */
+  const toggleMenu = () => {
+    const open = navLinks.classList.toggle('active');
+    mobileBtn?.setAttribute('aria-expanded', open);
+    body.classList.toggle('mobile-menu-open', open);
+
+    // Hamburger → X
+    hamburger.forEach((line, i) => {
+      if (i === 0) line.style.transform = open ? 'rotate(45deg) translate(6px,6px)' : '';
+      if (i === 1) line.style.opacity   = open ? '0' : '1';
+      if (i === 2) line.style.transform = open ? 'rotate(-45deg) translate(7px,-7px)' : '';
     });
-    
-    // Close mobile menu when clicking on a link
-    const navLinks = document.querySelectorAll('.nav-links a:not(.dropdown-toggle)');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                const navLinksContainer = document.querySelector('.nav-links');
-                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-                
-                if (navLinksContainer) {
-                    navLinksContainer.classList.remove('active');
-                }
-                if (mobileMenuBtn) {
-                    mobileMenuBtn.classList.remove('active');
-                }
-                document.body.classList.remove('menu-open');
-            }
-        });
+  };
+  mobileBtn?.addEventListener('click', toggleMenu);
+
+  /* ---------- 2. Close menu on link click (mobile) ---------- */
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      if (window.innerWidth <= 768 && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        mobileBtn?.setAttribute('aria-expanded', 'false');
+        body.classList.remove('mobile-menu-open');
+        resetHamburger();
+      }
     });
-});
+  });
 
-// Header scroll effect
-window.addEventListener('scroll', function() {
-    const header = document.getElementById('header');
-    
-    if (header) {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    }
-});
+  /* ---------- 3. Mobile dropdown (click) ---------- */
+  dropdowns.forEach(d => {
+    const toggle = d.querySelector('.dropdown-toggle') || d.querySelector('a');
+    toggle?.addEventListener('click', e => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        const isActive = d.classList.toggle('active');
+        // close others
+        dropdowns.forEach(o => { if (o !== d) o.classList.remove('active'); });
+      }
+    });
+  });
 
-// Close mobile menu when resizing to desktop
-window.addEventListener('resize', function() {
-    if (window.innerWidth > 768) {
-        const navLinks = document.querySelector('.nav-links');
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const dropdowns = document.querySelectorAll('.dropdown');
-        
-        if (navLinks) {
-            navLinks.classList.remove('active');
-        }
-        if (mobileMenuBtn) {
-            mobileMenuBtn.classList.remove('active');
-        }
-        dropdowns.forEach(dropdown => {
-            dropdown.classList.remove('active');
-        });
-        document.body.classList.remove('menu-open');
+  /* ---------- 4. Close dropdowns when clicking outside ---------- */
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.dropdown') && !e.target.closest('.mobile-menu-btn')) {
+      dropdowns.forEach(d => d.classList.remove('active'));
     }
+  });
+
+  /* ---------- 5. Reset hamburger ---------- */
+  const resetHamburger = () => {
+    hamburger.forEach(l => {
+      l.style.transform = '';
+      l.style.opacity   = '1';
+    });
+  };
+
+  /* ---------- 6. Resize handling ---------- */
+  let rTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(rTimer);
+    rTimer = setTimeout(() => {
+      if (window.innerWidth > 768) {
+        navLinks.classList.remove('active');
+        body.classList.remove('mobile-menu-open');
+        dropdowns.forEach(d => d.classList.remove('active'));
+        resetHamburger();
+      }
+    }, 150);
+  });
+
+  /* ---------- 7. ESC key closes everything ---------- */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      navLinks.classList.remove('active');
+      body.classList.remove('mobile-menu-open');
+      dropdowns.forEach(d => d.classList.remove('active'));
+      resetHamburger();
+    }
+  });
 });
