@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking System Diagnostics - Zonixtec</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .test-section h2 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+        .status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 10px 10px 10px 0;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .result-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #667eea;
+        }
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+        .step {
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 3px solid #ddd;
+            padding-left: 15px;
+        }
+        .step.active {
+            border-left-color: #667eea;
+            background: #f0f4ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-stethoscope"></i> Booking System Diagnostics</h1>
+        <p class="subtitle">Test and debug the 30-minute call booking system</p>
+
+        <!-- Step 1: Database Table Check -->
+        <div class="test-section">
+            <h2><i class="fas fa-database"></i> Step 1: Database Table Check</h2>
+            <p>Check if the 'bookings' table exists in the database</p>
+            <button onclick="checkDatabaseTable()">
+                <i class="fas fa-search"></i> Check Database Table
+            </button>
+            <div id="db-result"></div>
+        </div>
+
+        <!-- Step 2: PHP Endpoint Test -->
+        <div class="test-section">
+            <h2><i class="fas fa-server"></i> Step 2: PHP Endpoint Test</h2>
+            <p>Test if save-booking.php is accessible and working</p>
+            <button onclick="testEndpoint()">
+                <i class="fas fa-plug"></i> Test Endpoint
+            </button>
+            <div id="endpoint-result"></div>
+        </div>
+
+        <!-- Step 3: Submit Test Booking -->
+        <div class="test-section">
+            <h2><i class="fas fa-paper-plane"></i> Step 3: Submit Test Booking</h2>
+            <p>Submit a test booking to verify the complete flow</p>
+            <button onclick="submitTestBooking()">
+                <i class="fas fa-flask"></i> Submit Test Booking
+            </button>
+            <div id="booking-result"></div>
+        </div>
+
+        <!-- Step 4: View Bookings -->
+        <div class="test-section">
+            <h2><i class="fas fa-list"></i> Step 4: View All Bookings</h2>
+            <p>Fetch and display all bookings from the database</p>
+            <button onclick="viewBookings()">
+                <i class="fas fa-eye"></i> View Bookings
+            </button>
+            <button onclick="window.location.href='Admin/bookings.html'" style="background: #28a745;">
+                <i class="fas fa-user-shield"></i> Open Admin Panel
+            </button>
+            <div id="view-result"></div>
+        </div>
+
+        <!-- Diagnostic Info -->
+        <div class="test-section">
+            <h2><i class="fas fa-info-circle"></i> System Information</h2>
+            <div class="result-box">
+                <strong>Current URL:</strong> <span id="current-url"></span><br>
+                <strong>Is Admin Folder:</strong> <span id="is-admin"></span><br>
+                <strong>API Path:</strong> <span id="api-path"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Display system info
+        document.getElementById('current-url').textContent = window.location.href;
+        const isAdmin = window.location.pathname.includes('/Admin/');
+        document.getElementById('is-admin').textContent = isAdmin ? 'Yes' : 'No';
+        const apiPath = isAdmin ? '../server/booking/save-booking.php' : './server/booking/save-booking.php';
+        document.getElementById('api-path').textContent = apiPath;
+
+        // Check if database table exists
+        async function checkDatabaseTable() {
+            const resultDiv = document.getElementById('db-result');
+            resultDiv.innerHTML = '<div class="result-box"><i class="fas fa-spinner fa-spin"></i> Checking database...</div>';
+            
+            try {
+                const response = await fetch('./server/booking/test-booking-table.php');
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <span class="status success">✓ TABLE EXISTS</span>
+                            <p><strong>Message:</strong> ${result.message}</p>
+                            <p><strong>Total Bookings:</strong> ${result.totalBookings}</p>
+                            <p><strong>Database:</strong> ${result.database}</p>
+                            <details>
+                                <summary style="cursor: pointer; margin-top: 10px;">View Table Structure</summary>
+                                <pre>${JSON.stringify(result.tableStructure, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <span class="status error">✗ TABLE NOT FOUND</span>
+                            <p><strong>Error:</strong> ${result.message}</p>
+                            <p><strong>Solution:</strong> ${result.solution}</p>
+                            <pre style="background: #fff3cd; color: #856404;">
+Run this SQL in phpMyAdmin:
+
+CREATE TABLE IF NOT EXISTS bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    company VARCHAR(255),
+    booking_date DATE NOT NULL,
+    booking_time TIME NOT NULL,
+    service VARCHAR(255) NOT NULL,
+    message TEXT,
+    status ENUM('pending', 'confirmed', 'cancelled', 'completed') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+                            </pre>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result-box">
+                        <span class="status error">✗ ERROR</span>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Test endpoint
+        async function testEndpoint() {
+            const resultDiv = document.getElementById('endpoint-result');
+            resultDiv.innerHTML = '<div class="result-box"><i class="fas fa-spinner fa-spin"></i> Testing endpoint...</div>';
+            
+            try {
+                const response = await fetch(apiPath, {
+                    method: 'GET'  // Should return 405 Method Not Allowed
+                });
+                
+                const result = await response.json();
+                
+                if (response.status === 405) {
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <span class="status success">✓ ENDPOINT ACCESSIBLE</span>
+                            <p>Endpoint responded correctly with "Method not allowed" (expected for GET request)</p>
+                            <p><strong>Status Code:</strong> 405</p>
+                            <p><strong>Message:</strong> ${result.message}</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <span class="status error">✗ UNEXPECTED RESPONSE</span>
+                            <p><strong>Status:</strong> ${response.status}</p>
+                            <pre>${JSON.stringify(result, null, 2)}</pre>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result-box">
+                        <span class="status error">✗ ENDPOINT NOT ACCESSIBLE</span>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p>Make sure PHP server is running and file exists at: ${apiPath}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Submit test booking
+        async function submitTestBooking() {
+            const resultDiv = document.getElementById('booking-result');
+            resultDiv.innerHTML = '<div class="result-box"><i class="fas fa-spinner fa-spin"></i> Submitting test booking...</div>';
+            
+            const testData = {
+                name: 'Test User ' + Date.now(),
+                email: 'test@zonixtec.com',
+                phone: '+1234567890',
+                company: 'Zonixtec Test',
+                bookingDate: new Date().toISOString().split('T')[0],
+                bookingTime: '14:30',
+                service: 'AI Strategy Consultation',
+                message: 'This is a test booking from diagnostics page'
+            };
+            
+            console.log('📤 Sending test data:', testData);
+            
+            try {
+                const response = await fetch(apiPath, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                console.log('📡 Response status:', response.status);
+                
+                const result = await response.json();
+                console.log('📥 Response data:', result);
+                
+                if (result.success) {
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <span class="status success">✓ BOOKING SAVED SUCCESSFULLY!</span>
+                            <p><strong>Booking ID:</strong> ${result.bookingId}</p>
+                            <p><strong>Message:</strong> ${result.message}</p>
+                            <pre>${JSON.stringify(testData, null, 2)}</pre>
+                            <button onclick="viewBookings()" style="margin-top: 10px;">
+                                <i class="fas fa-eye"></i> View All Bookings
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <span class="status error">✗ BOOKING FAILED</span>
+                            <p><strong>Error:</strong> ${result.message}</p>
+                            ${result.error ? `<p><strong>Details:</strong> ${result.error}</p>` : ''}
+                            <pre>${JSON.stringify(result, null, 2)}</pre>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result-box">
+                        <span class="status error">✗ REQUEST FAILED</span>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // View bookings
+        async function viewBookings() {
+            const resultDiv = document.getElementById('view-result');
+            resultDiv.innerHTML = '<div class="result-box"><i class="fas fa-spinner fa-spin"></i> Loading bookings...</div>';
+            
+            try {
+                const response = await fetch('./server/admin/admin-get-bookings.php');
+                const result = await response.json();
+                
+                if (result.status) {
+                    const bookings = result.response;
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <span class="status success">✓ ${bookings.length} BOOKING(S) FOUND</span>
+                            <p><strong>Total:</strong> ${result.stats.total}</p>
+                            <p><strong>Pending:</strong> ${result.stats.pending} | 
+                               <strong>Confirmed:</strong> ${result.stats.confirmed} | 
+                               <strong>Completed:</strong> ${result.stats.completed}</p>
+                            <pre>${JSON.stringify(bookings, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <span class="status error">✗ FAILED TO LOAD</span>
+                            <p><strong>Error:</strong> ${result.message}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result-box">
+                        <span class="status error">✗ ERROR</span>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Auto-check database on load
+        window.addEventListener('load', () => {
+            checkDatabaseTable();
+        });
+    </script>
+</body>
+</html>

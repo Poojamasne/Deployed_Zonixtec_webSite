@@ -29,6 +29,8 @@
         <ul>
           <li><a href="#"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
           <li><a href="job-application.html"><i class="fas fa-briefcase"></i> <span>Job Application</span></a></li>
+          <li><a href="bookings.html"><i class="fas fa-calendar-check"></i> <span>Bookings</span></a></li>
+          <li><a href="chatbot-conversations.html"><i class="fas fa-comments"></i> <span>Chatbot Conversations</span></a></li>
         </ul>
       </nav>
     </div>
@@ -205,6 +207,7 @@
       $('.admin-sidebar').toggleClass('active');
       $('.admin-container').toggleClass('sidebar-open');
     });
+    
     // Hide sidebar when clicking outside on mobile
     $(document).on('click touchstart', function (e) {
       if ($(window).width() <= 991 &&
@@ -212,6 +215,14 @@
         $('.admin-sidebar').hasClass('active')) {
         $('.admin-sidebar').removeClass('active');
         $('.admin-container').removeClass('sidebar-open');
+      }
+    });
+
+    // Logout functionality
+    $('.logout-btn').on('click', function() {
+      if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('admin_auth');
+        window.location.href = 'login.html';
       }
     });
     // Auth check on page load (force login if not authenticated)

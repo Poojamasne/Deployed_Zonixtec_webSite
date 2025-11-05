@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Booking API - Zonixtec</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 { color: #667eea; }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover { background: #764ba2; }
+        .result {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="test-box">
+        <h1>🧪 Test Booking API</h1>
+        <p>This will test if the booking API endpoint is working</p>
+        
+        <button onclick="testAPI()">Test API Connection</button>
+        <button onclick="checkFileExists()">Check if PHP File Exists</button>
+        <button onclick="testFullBooking()">Submit Test Booking</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_URL = 'https://zonixtec.com/server/booking/save-booking.php';
+        
+        function showResult(message, isError = false) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<div class="result ${isError ? 'error' : 'success'}">${message}</div>`;
+        }
+
+        async function testAPI() {
+            showResult('Testing API connection...');
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'GET'  // This should return 405 if file exists
+                });
+                
+                const text = await response.text();
+                
+                if (response.status === 405) {
+                    showResult(`✅ SUCCESS! API endpoint exists and is responding.\n\nStatus: ${response.status}\nResponse: ${text}`);
+                } else {
+                    showResult(`⚠️ Unexpected response:\n\nStatus: ${response.status}\nResponse: ${text}`, true);
+                }
+            } catch (error) {
+                showResult(`❌ ERROR: Cannot reach API endpoint\n\nError: ${error.message}\n\nPossible causes:\n1. PHP file not uploaded to server\n2. File path is incorrect\n3. Server is down\n4. CORS issue`, true);
+            }
+        }
+
+        async function checkFileExists() {
+            showResult('Checking if file exists on server...');
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'HEAD'
+                });
+                
+                if (response.ok || response.status === 405) {
+                    showResult(`✅ File exists on server!\n\nURL: ${API_URL}\nStatus: ${response.status}`);
+                } else if (response.status === 404) {
+                    showResult(`❌ FILE NOT FOUND (404)\n\nThe file does not exist at:\n${API_URL}\n\nPlease upload save-booking.php to your server!`, true);
+                } else {
+                    showResult(`Status: ${response.status}\nFile may or may not exist.`);
+                }
+            } catch (error) {
+                showResult(`❌ Cannot check file: ${error.message}`, true);
+            }
+        }
+
+        async function testFullBooking() {
+            showResult('Submitting test booking...');
+            
+            const testData = {
+                name: 'Test User',
+                email: 'test@example.com',
+                phone: '+1234567890',
+                company: 'Test Company',
+                bookingDate: '2025-11-10',
+                bookingTime: '14:30',
+                service: 'AI Strategy Consultation',
+                message: 'This is a test booking'
+            };
+            
+            try {
+                console.log('Sending:', testData);
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                const result = await response.json();
+                console.log('Response data:', result);
+                
+                if (result.success) {
+                    showResult(`✅ BOOKING SAVED SUCCESSFULLY!\n\nBooking ID: ${result.bookingId}\nMessage: ${result.message}\n\nData sent:\n${JSON.stringify(testData, null, 2)}`);
+                } else {
+                    showResult(`❌ BOOKING FAILED\n\nError: ${result.message}\n${result.error ? 'Details: ' + result.error : ''}\n\nResponse:\n${JSON.stringify(result, null, 2)}`, true);
+                }
+            } catch (error) {
+                showResult(`❌ REQUEST FAILED\n\nError: ${error.message}\n\nThis usually means:\n1. API file doesn't exist on server\n2. Database table 'bookings' doesn't exist\n3. CORS issue\n4. Server error`, true);
+            }
+        }
+
+        // Auto-test on load
+        window.onload = () => {
+            console.log('API URL:', API_URL);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bookings - Admin Panel - Zonixtec</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./admin.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="../CSS/booking-modal.css">
+  <style>
+    .status-badge {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+    .status-confirmed {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    .status-cancelled {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    .status-completed {
+      background: #d4edda;
+      color: #155724;
+    }
+    .booking-details {
+      font-size: 13px;
+      color: #666;
+    }
+    .action-btns {
+      display: flex;
+      gap: 5px;
+    }
+    .action-btn {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+    .btn-confirm {
+      background: #28a745;
+      color: white;
+    }
+    .btn-cancel {
+      background: #dc3545;
+      color: white;
+    }
+    .btn-complete {
+      background: #17a2b8;
+      color: white;
+    }
+    .action-btn:hover {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filter-tab {
+      padding: 8px 16px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .filter-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .filter-tab:hover {
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open sidebar"><i class="fas fa-bars"></i></button>
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <h2>Zoni<span>x</span>tec</h2>
+        <p>Admin Dashboard</p>
+      </div>
+      <nav class="admin-nav">
+        <ul>
+          <li><a href="admin.html"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+          <li><a href="job-application.html"><i class="fas fa-briefcase"></i> <span>Job Application</span></a></li>
+          <li><a href="bookings.html" class="active"><i class="fas fa-calendar-check"></i> <span>Bookings</span></a></li>
+          <li><a href="chatbot-conversations.html"><i class="fas fa-comments"></i> <span>Chatbot Conversations</span></a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main -->
+    <div class="admin-main">
+      <div class="admin-header">
+        <h1>Booking Requests Management</h1>
+        <div class="admin-user">
+          <div class="user-info">
+            <div class="name">Zonixtec</div>
+            <div class="role">Administrator</div>
+          </div>
+          <button class="logout-btn" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-info">
+            <h3 id="total-bookings">0</h3>
+            <p>Total Bookings</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange"><i class="fas fa-clock"></i></div>
+          <div class="stat-info">
+            <h3 id="pending-bookings">0</h3>
+            <p>Pending</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+          <div class="stat-info">
+            <h3 id="confirmed-bookings">0</h3>
+            <p>Confirmed</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple"><i class="fas fa-star"></i></div>
+          <div class="stat-info">
+            <h3 id="completed-bookings">0</h3>
+            <p>Completed</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-status="all">All Bookings</button>
+        <button class="filter-tab" data-status="pending">Pending</button>
+        <button class="filter-tab" data-status="confirmed">Confirmed</button>
+        <button class="filter-tab" data-status="completed">Completed</button>
+        <button class="filter-tab" data-status="cancelled">Cancelled</button>
+      </div>
+
+      <!-- Bookings Table -->
+      <div class="table-container">
+        <div class="table-header">
+          <h2>Booking Requests</h2>
+          <div class="table-actions">
+            <button class="btn btn-outline" id="refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Company</th>
+              <th>Date & Time</th>
+              <th>Service</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="bookings-table-body">
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 40px;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary);"></i>
+                <p style="margin-top: 10px;">Loading bookings...</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="./admin.js"></script>
+  <script>
+    // Bookings Management Script
+    let allBookings = [];
+    let currentFilter = 'all';
+
+    // Load bookings on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadBookings();
+      
+      // Filter tabs
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentFilter = this.dataset.status;
+          renderBookings();
+        });
+      });
+
+      // Refresh button
+      document.getElementById('refresh-btn').addEventListener('click', function() {
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+        loadBookings();
+      });
+
+      // Logout
+      document.querySelector('.logout-btn').addEventListener('click', function() {
+        if (confirm('Are you sure you want to logout?')) {
+          localStorage.removeItem('isAdminLoggedIn');
+          window.location.href = 'login.html';
+        }
+      });
+    });
+
+    // Load bookings from server
+    async function loadBookings() {
+      try {
+        const response = await fetch('https://zonixtec.com/server/admin/admin-get-bookings.php');
+        const data = await response.json();
+
+        if (data.status) {
+          allBookings = data.response;
+          
+          // Update stats
+          document.getElementById('total-bookings').textContent = data.stats.total;
+          document.getElementById('pending-bookings').textContent = data.stats.pending;
+          document.getElementById('confirmed-bookings').textContent = data.stats.confirmed;
+          document.getElementById('completed-bookings').textContent = data.stats.completed;
+          
+          renderBookings();
+        } else {
+          showError('Failed to load bookings');
+        }
+      } catch (error) {
+        console.error('Error loading bookings:', error);
+        showError('Error loading bookings');
+      } finally {
+        document.getElementById('refresh-btn').innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+      }
+    }
+
+    // Render bookings table
+    function renderBookings() {
+      const tbody = document.getElementById('bookings-table-body');
+      
+      // Filter bookings
+      let filteredBookings = allBookings;
+      if (currentFilter !== 'all') {
+        filteredBookings = allBookings.filter(b => b.status === currentFilter);
+      }
+
+      if (filteredBookings.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 40px;">
+              <i class="fas fa-inbox" style="font-size: 48px; color: #ccc;"></i>
+              <p style="margin-top: 10px; color: #666;">No bookings found</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filteredBookings.map(booking => `
+        <tr>
+          <td>#${booking.id}</td>
+          <td><strong>${escapeHtml(booking.name)}</strong></td>
+          <td>
+            <div class="booking-details">
+              <div><i class="fas fa-envelope"></i> ${escapeHtml(booking.email)}</div>
+              <div><i class="fas fa-phone"></i> ${escapeHtml(booking.phone)}</div>
+            </div>
+          </td>
+          <td>${escapeHtml(booking.company || 'N/A')}</td>
+          <td>
+            <div class="booking-details">
+              <div><i class="fas fa-calendar"></i> ${formatDate(booking.booking_date)}</div>
+              <div><i class="fas fa-clock"></i> ${booking.booking_time}</div>
+            </div>
+          </td>
+          <td>${escapeHtml(booking.service)}</td>
+          <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
+          <td>
+            <div class="action-btns">
+              ${booking.status === 'pending' ? `
+                <button class="action-btn btn-confirm" onclick="updateStatus(${booking.id}, 'confirmed')">
+                  <i class="fas fa-check"></i> Confirm
+                </button>
+              ` : ''}
+              ${booking.status === 'confirmed' ? `
+                <button class="action-btn btn-complete" onclick="updateStatus(${booking.id}, 'completed')">
+                  <i class="fas fa-check-double"></i> Complete
+                </button>
+              ` : ''}
+              ${booking.status !== 'cancelled' && booking.status !== 'completed' ? `
+                <button class="action-btn btn-cancel" onclick="updateStatus(${booking.id}, 'cancelled')">
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+              ` : ''}
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Update booking status
+    async function updateStatus(id, status) {
+      const confirmMsg = `Are you sure you want to mark this booking as ${status}?`;
+      if (!confirm(confirmMsg)) return;
+
+      try {
+        const response = await fetch('https://zonixtec.com/server/admin/admin-update-booking-status.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, status })
+        });
+
+        const data = await response.json();
+
+        if (data.status) {
+          // Update local data
+          const booking = allBookings.find(b => b.id === id);
+          if (booking) {
+            booking.status = status;
+          }
+          renderBookings();
+          loadBookings(); // Refresh stats
+        } else {
+          alert('Failed to update booking status');
+        }
+      } catch (error) {
+        console.error('Error updating status:', error);
+        alert('Error updating booking status');
+      }
+    }
+
+    // Helper functions
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function showError(message) {
+      const tbody = document.getElementById('bookings-table-body');
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="8" style="text-align: center; padding: 40px; color: #dc3545;">
+            <i class="fas fa-exclamation-circle" style="font-size: 48px;"></i>
+            <p style="margin-top: 10px;">${message}</p>
+          </td>
+        </tr>
+      `;
+    }
+  </script>
+</body>
+
+</html>

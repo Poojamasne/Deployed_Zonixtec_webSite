@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Test Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./CSS/chatbot.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .instructions h2 {
+            color: #667eea;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .feature-card i {
+            font-size: 32px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card h3 {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .feature-card p {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .alert {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+            color: #0c5460;
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .status i {
+            font-size: 20px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+    <link rel="stylesheet" href="./CSS/booking-modal.css">
+</head>
+<body>
+    <div class="test-container">
+        <h1>🤖 Chatbot Test Page</h1>
+        <p class="subtitle">Testing Zonixtec AI Assistant</p>
+        
+        <div class="alert alert-info">
+            <strong>ℹ️ Note:</strong> This is a test page to verify the chatbot integration. 
+            The chatbot appears on all pages of the website.
+        </div>
+        
+        <div class="instructions">
+            <h2>📋 How to Test</h2>
+            <ol>
+                <li>Look for the purple chat button in the bottom-right corner</li>
+                <li>Click the button to open the chatbot</li>
+                <li>Enter your name and email when prompted</li>
+                <li>Try asking questions like:
+                    <ul style="margin-top: 10px;">
+                        <li>"What services do you offer?"</li>
+                        <li>"Tell me about AI solutions"</li>
+                        <li>"How can I contact you?"</li>
+                        <li>"What's your pricing?"</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-robot"></i>
+                <h3>AI Powered</h3>
+                <p>Intelligent responses</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-database"></i>
+                <h3>Data Saved</h3>
+                <p>All chats stored</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Admin Panel</h3>
+                <p>View conversations</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Responsive</h3>
+                <p>Works on mobile</p>
+            </div>
+        </div>
+        
+        <div class="alert">
+            <strong>⚠️ Important:</strong> For the chatbot to work properly:
+            <ul style="margin-top: 10px; margin-left: 20px;">
+                <li>Database table must be created (run chatbot-table.sql)</li>
+                <li>PHP backend files must be uploaded to server</li>
+                <li>CORS must be properly configured</li>
+            </ul>
+        </div>
+        
+        <div class="status">
+            <i class="fas fa-check-circle"></i>
+            <div>
+                <strong>Chatbot Status: Ready</strong><br>
+                <small>The chatbot widget should be visible on this page</small>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🔗 <a href="index.html" style="color: #667eea; text-decoration: none;">Back to Home</a></p>
+            <p style="margin-top: 10px;">© 2025 Zonixtec - All Rights Reserved</p>
+        </div>
+    </div>
+
+    <script src="./script/chatbot.js"></script>
+
+    <!-- Booking Modal -->
+<div class="modal" id="bookingModal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeBookingModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="modal-header">
+            <h2>Book Your Free 30-Minute Consultation</h2>
+            <p>Let's discuss how we can help transform your business</p>
+        </div>
+
+        <form class="booking-form" id="bookingForm">
+            <div class="form-row">
+                <div class="form-group-modal">
+                    <label>Full Name <span>*</span></label>
+                    <input type="text" id="bookingName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group-modal">
+                    <label>Email Address <span>*</span></label>
+                    <input type="email" id="bookingEmail" placeholder="your@email.com" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group-modal">
+                    <label>Phone Number <span>*</span></label>
+                    <input type="tel" id="bookingPhone" placeholder="+91 999999999" required>
+                </div>
+                <div class="form-group-modal">
+                    <label>Company Name</label>
+                    <input type="text" id="bookingCompany" placeholder="Your company (optional)">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group-modal">
+                    <label>Preferred Date <span>*</span></label>
+                    <input type="date" id="bookingDate" required>
+                </div>
+                <div class="form-group-modal">
+                    <label>Preferred Time <span>*</span></label>
+                    <input type="time" id="bookingTime" required>
+                </div>
+            </div>
+
+            <div class="form-group-modal">
+                <label>Service Interested In <span>*</span></label>
+                <select id="bookingService" required>
+                    <option value="">Select a service</option>
+                    <option value="CRM Solutions">CRM Solutions</option>
+                    <option value="ERP Solutions">ERP Solutions</option>
+                    <option value="Billing Software">Billing Software</option>
+                    <option value="Website Development">Website Development</option>
+                    <option value="Mobile App Development">Mobile App Development</option>
+                    <option value="AI Solutions">AI Solutions</option>
+                    <option value="Cloud Solutions">Cloud Solutions</option>
+                    <option value="Digital Marketing">Digital Marketing</option>
+                    <option value="UI/UX Design">UI/UX Design</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group-modal">
+                <label>Message / Additional Details</label>
+                <textarea id="bookingMessage" placeholder="Tell us about your project or questions..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-booking-btn">
+                <i class="fas fa-calendar-check"></i> Book My Call
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Success Message Overlay -->
+<div class="success-message" id="bookingSuccess">
+    <i class="fas fa-check-circle"></i> 
+    <strong>Your Call is Booked!</strong>
+    <p>Our team will connect with you as soon as possible. Thank you for choosing Zonixtec!</p>
+</div>
+
+
+    <!-- Booking Modal Script -->
+    <script src="./script/booking-modal.js"></script>
+
+</body>
+</html>

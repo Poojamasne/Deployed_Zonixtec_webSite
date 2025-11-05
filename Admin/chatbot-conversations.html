@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot Conversations - Admin Panel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./admin.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    .conversation-list {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    .conversation-item {
+      padding: 15px;
+      border-bottom: 1px solid #e0e0e0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .conversation-item:hover {
+      background: #f8f9fa;
+    }
+    
+    .conversation-item.active {
+      background: #e7f3ff;
+      border-left: 3px solid #667eea;
+    }
+    
+    .conversation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    
+    .conversation-name {
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .conversation-time {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .conversation-email {
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .conversation-details {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    .message-bubble {
+      margin-bottom: 15px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      max-width: 80%;
+    }
+    
+    .message-bubble.user {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      margin-left: auto;
+      text-align: right;
+    }
+    
+    .message-bubble.bot {
+      background: #f1f3f5;
+      color: #333;
+    }
+    
+    .message-text {
+      margin-bottom: 5px;
+      white-space: pre-wrap;
+    }
+    
+    .message-timestamp {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+    
+    .empty-state i {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.3;
+    }
+  </style>
+    <link rel="stylesheet" href="../CSS/booking-modal.css">
+</head>
+
+<body>
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open sidebar"><i class="fas fa-bars"></i></button>
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <h2>Zoni<span>x</span>tec</h2>
+        <p>Admin Dashboard</p>
+      </div>
+      <nav class="admin-nav">
+        <ul>
+          <li><a href="admin.html"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+          <li><a href="job-application.html"><i class="fas fa-briefcase"></i> <span>Job Application</span></a></li>
+          <li><a href="bookings.html"><i class="fas fa-calendar-check"></i> <span>Bookings</span></a></li>
+          <li><a href="chatbot-conversations.html" class="active"><i class="fas fa-comments"></i> <span>Chatbot Conversations</span></a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main -->
+    <div class="admin-main">
+      <div class="admin-header">
+        <h1>Chatbot Conversations</h1>
+        <div class="admin-user">
+          <div class="user-info">
+            <div class="name">Zonixtec</div>
+            <div class="role">Administrator</div>
+          </div>
+          <button class="logout-btn" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fas fa-comments"></i></div>
+          <div class="stat-info">
+            <h3 id="total-sessions">0</h3>
+            <p>Total Sessions</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fas fa-message"></i></div>
+          <div class="stat-info">
+            <h3 id="total-messages">0</h3>
+            <p>Total Messages</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange"><i class="fas fa-users"></i></div>
+          <div class="stat-info">
+            <h3 id="unique-users">0</h3>
+            <p>Unique Users</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red"><i class="fas fa-clock"></i></div>
+          <div class="stat-info">
+            <h3 id="today-sessions">0</h3>
+            <p>Today's Sessions</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conversations -->
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="table-container">
+            <div class="table-header">
+              <h2>Conversations List</h2>
+              <button class="btn btn-outline" id="refresh-btn"><i class="fas fa-sync"></i></button>
+            </div>
+            <div class="conversation-list" id="conversations-list">
+              <div class="empty-state">
+                <i class="fas fa-comments"></i>
+                <p>Loading conversations...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="table-container">
+            <div class="table-header">
+              <h2>Conversation Details</h2>
+              <div id="conversation-info"></div>
+            </div>
+            <div class="conversation-details" id="conversation-details">
+              <div class="empty-state">
+                <i class="fas fa-mouse-pointer"></i>
+                <p>Select a conversation to view details</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      // Hamburger menu toggle
+      $('#sidebarToggle').on('click', function () {
+        $('.admin-sidebar').toggleClass('active');
+        $('.admin-container').toggleClass('sidebar-open');
+      });
+
+      // Auth check
+      if (localStorage.getItem('admin_auth') !== '1') {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Load conversations
+      function loadConversations() {
+        $.ajax({
+          url: 'https://zonixtec.com/server/chatbot/chatbot-get-conversations.php',
+          type: 'GET',
+          dataType: 'json',
+          success: function (response) {
+            if (response.success && response.sessions) {
+              renderConversationsList(response.sessions);
+              updateStats(response.stats);
+            } else {
+              $('#conversations-list').html(`
+                <div class="empty-state">
+                  <i class="fas fa-comments"></i>
+                  <p>No conversations yet</p>
+                </div>
+              `);
+            }
+          },
+          error: function () {
+            $('#conversations-list').html(`
+              <div class="empty-state">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Failed to load conversations</p>
+              </div>
+            `);
+          }
+        });
+      }
+
+      function renderConversationsList(sessions) {
+        let html = '';
+        sessions.forEach(function (session) {
+          const date = new Date(session.last_message_time);
+          const timeStr = formatDate(date);
+          
+          html += `
+            <div class="conversation-item" data-session="${session.session_id}">
+              <div class="conversation-header">
+                <div class="conversation-name">${session.user_name || 'Anonymous'}</div>
+                <div class="conversation-time">${timeStr}</div>
+              </div>
+              <div class="conversation-email">${session.user_email || 'No email'}</div>
+              <div class="conversation-email">
+                <i class="fas fa-comment"></i> ${session.message_count} messages
+              </div>
+            </div>
+          `;
+        });
+        
+        $('#conversations-list').html(html);
+        
+        // Click handler
+        $('.conversation-item').on('click', function () {
+          $('.conversation-item').removeClass('active');
+          $(this).addClass('active');
+          const sessionId = $(this).data('session');
+          loadConversationDetails(sessionId);
+        });
+      }
+
+      function loadConversationDetails(sessionId) {
+        $.ajax({
+          url: `https://zonixtec.com/server/chatbot/chatbot-get-conversations.php?session_id=${sessionId}`,
+          type: 'GET',
+          dataType: 'json',
+          success: function (response) {
+            if (response.success && response.conversations) {
+              renderConversationDetails(response.conversations);
+            }
+          },
+          error: function () {
+            $('#conversation-details').html(`
+              <div class="empty-state">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Failed to load conversation details</p>
+              </div>
+            `);
+          }
+        });
+      }
+
+      function renderConversationDetails(conversations) {
+        if (!conversations.length) {
+          $('#conversation-details').html(`
+            <div class="empty-state">
+              <i class="fas fa-comments"></i>
+              <p>No messages in this conversation</p>
+            </div>
+          `);
+          return;
+        }
+
+        const firstMsg = conversations[0];
+        $('#conversation-info').html(`
+          <div style="font-size: 13px; color: #666;">
+            <i class="fas fa-user"></i> ${firstMsg.user_name || 'Anonymous'} | 
+            <i class="fas fa-envelope"></i> ${firstMsg.user_email || 'N/A'}
+            ${firstMsg.user_phone ? ' | <i class="fas fa-phone"></i> ' + firstMsg.user_phone : ''}
+          </div>
+        `);
+
+        let html = '';
+        conversations.forEach(function (msg) {
+          const date = new Date(msg.created_at);
+          const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+          const text = msg.message_type === 'user' ? msg.message : msg.response;
+          
+          html += `
+            <div class="message-bubble ${msg.message_type}">
+              <div class="message-text">${escapeHtml(text)}</div>
+              <div class="message-timestamp">${timeStr}</div>
+            </div>
+          `;
+        });
+
+        $('#conversation-details').html(html);
+        $('#conversation-details').scrollTop($('#conversation-details')[0].scrollHeight);
+      }
+
+      function updateStats(stats) {
+        $('#total-sessions').text(stats.total_sessions || 0);
+        $('#total-messages').text(stats.total_messages || 0);
+        $('#unique-users').text(stats.unique_users || 0);
+        
+        // Calculate today's sessions (simplified - would need backend support for accuracy)
+        $('#today-sessions').text('N/A');
+      }
+
+      function formatDate(date) {
+        const now = new Date();
+        const diff = now - date;
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(diff / 3600000);
+        const days = Math.floor(diff / 86400000);
+
+        if (minutes < 1) return 'Just now';
+        if (minutes < 60) return `${minutes}m ago`;
+        if (hours < 24) return `${hours}h ago`;
+        if (days < 7) return `${days}d ago`;
+        return date.toLocaleDateString();
+      }
+
+      function escapeHtml(text) {
+        const map = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
+      }
+
+      // Refresh button
+      $('#refresh-btn').on('click', function () {
+        loadConversations();
+        $(this).find('i').addClass('fa-spin');
+        setTimeout(() => {
+          $(this).find('i').removeClass('fa-spin');
+        }, 1000);
+      });
+
+      // Logout handler
+      $('.logout-btn').on('click', function () {
+        localStorage.removeItem('admin_auth');
+        window.location.href = 'login.html';
+      });
+
+      // Initial load
+      loadConversations();
+
+      // Auto-refresh every 30 seconds
+      setInterval(loadConversations, 30000);
+    });
+  </script>
+
+    <!-- Chatbot -->
+    <link rel="stylesheet" href="../CSS/chatbot.css">
+    <script src="../script/chatbot.js"></script>
+
+
+    <!-- Booking Modal -->
+<div class="modal" id="bookingModal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeBookingModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="modal-header">
+            <h2>Book Your Free 30-Minute Consultation</h2>
+            <p>Let's discuss how we can help transform your business</p>
+        </div>
+
+        <form class="booking-form" id="bookingForm">
+            <div class="form-row">
+                <div class="form-group-modal">
+                    <label>Full Name <span>*</span></label>
+                    <input type="text" id="bookingName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group-modal">
+                    <label>Email Address <span>*</span></label>
+                    <input type="email" id="bookingEmail" placeholder="your@email.com" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group-modal">
+                    <label>Phone Number <span>*</span></label>
+                    <input type="tel" id="bookingPhone" placeholder="+91 999999999" required>
+                </div>
+                <div class="form-group-modal">
+                    <label>Company Name</label>
+                    <input type="text" id="bookingCompany" placeholder="Your company (optional)">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group-modal">
+                    <label>Preferred Date <span>*</span></label>
+                    <input type="date" id="bookingDate" required>
+                </div>
+                <div class="form-group-modal">
+                    <label>Preferred Time <span>*</span></label>
+                    <input type="time" id="bookingTime" required>
+                </div>
+            </div>
+
+            <div class="form-group-modal">
+                <label>Service Interested In <span>*</span></label>
+                <select id="bookingService" required>
+                    <option value="">Select a service</option>
+                    <option value="CRM Solutions">CRM Solutions</option>
+                    <option value="ERP Solutions">ERP Solutions</option>
+                    <option value="Billing Software">Billing Software</option>
+                    <option value="Website Development">Website Development</option>
+                    <option value="Mobile App Development">Mobile App Development</option>
+                    <option value="AI Solutions">AI Solutions</option>
+                    <option value="Cloud Solutions">Cloud Solutions</option>
+                    <option value="Digital Marketing">Digital Marketing</option>
+                    <option value="UI/UX Design">UI/UX Design</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group-modal">
+                <label>Message / Additional Details</label>
+                <textarea id="bookingMessage" placeholder="Tell us about your project or questions..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-booking-btn">
+                <i class="fas fa-calendar-check"></i> Book My Call
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Success Message Overlay -->
+<div class="success-message" id="bookingSuccess">
+    <i class="fas fa-check-circle"></i> 
+    <strong>Your Call is Booked!</strong>
+    <p>Our team will connect with you as soon as possible. Thank you for choosing Zonixtec!</p>
+</div>
+
+
+    <!-- Booking Modal Script -->
+    <script src="../script/booking-modal.js"></script>
+
+</body>
+
+</html>

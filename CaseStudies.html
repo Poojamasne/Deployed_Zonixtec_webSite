@@ -811,22 +811,25 @@
             }
         }
     </style>
+    <!-- Responsive Fixes CSS -->
+
+
+    <!-- Navbar CSS -->
+    <link rel="stylesheet" href="./CSS/navbar.css">
+    <link rel="stylesheet" href="./CSS/booking-modal.css">
 </head>
 <body>
     <!-- Header -->
     <header id="header">
         <div class="container">
             <nav>
-                 <a href="index.html" class="logo">
-                    <img src="./Assets/Logo.svg" alt="Zonixtec Logo" style="height: 40px; width: auto;">
-                </a>
-                 <a href="index.html" class="logo">
+                <a href="index.html" class="logo">
                     <img src="./Assets/Logo.svg" alt="Zonixtec Logo" style="height: 40px; width: auto;">
                 </a>
                 <div class="nav-links">
-                    <a href="index.html">Home</a>
+
                     <a href="aboutus.html">About</a>
-                    
+
                     <!-- Services Dropdown -->
                     <div class="dropdown">
                         <a href="Services.html" class="dropdown-toggle">Services <i class="fas fa-chevron-down"></i></a>
@@ -846,14 +849,19 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <a href="carrer.html">Career</a>
                     <a href="contact.html">Contact</a>
-                    <a href="contact.html" class="cta-buttons">Get Started</a>
+                    <a href="javascript:void(0);" class="cta-buttons" onclick="openBookingModal()">
+                        <i class="fas fa-phone-alt"></i>Book A 30 Min Call
+                    </a>
                 </div>
-                <div class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </div>
+                
+                <button class="mobile-menu-btn" aria-label="Toggle mobile menu" onclick="window.toggleMobileMenu && window.toggleMobileMenu()">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
             </nav>
         </div>
     </header>
@@ -861,7 +869,7 @@
     <!-- Case Study Hero -->
     <section class="case-hero">
         <div class="container">
-            <h1>Kaleshwari Mandir: From Temple Walls to Digital Devotees</h1>
+            <h1>Kaleshwari Temple: From Temple Walls to Digital Devotees</h1>
             <p>How a centuries-old temple embraced technology to reach devotees worldwide with Live Darshan, Online Donations, and eSevas</p>
             
             <div class="client-info">
@@ -892,14 +900,14 @@
                 <!-- The Client Section -->
                 <div class="case-section">
                     <h2>The Client</h2>
-                    <p>Kaleshwari Mandir – a centuries-old temple known for its cultural significance and spiritual presence. While the temple had a strong offline following of devotees, it struggled to reach the newer generation that prefers engaging digitally.</p>
+                    <p>Kaleshwari Temple – a centuries-old temple known for its cultural significance and spiritual presence. While the temple had a strong offline following of devotees, it struggled to reach the newer generation that prefers engaging digitally.</p>
                     <p>Their vision was simple yet powerful: <strong>make the divine experience accessible to everyone, anytime, anywhere.</strong></p>
                 </div>
                 
                 <!-- The Pain Points Section -->
                 <div class="case-section">
                     <h2>The Challenge</h2>
-                    <p>Despite its deep roots and strong faith community, Kaleshwari Mandir faced a <strong>modern challenge</strong> – limited online visibility.</p>
+                    <p>Despite its deep roots and strong faith community, Kaleshwari Temple faced a <strong>modern challenge</strong> – limited online visibility.</p>
                     
                     <div class="pain-points-grid">
                         <div class="pain-point">
@@ -945,7 +953,7 @@
                     
                     <blockquote>
                         "We realized that while faith was strong, the bridge to reach people in today's digital world was missing."
-                        <span class="quote-author">– Committee Member, Kaleshwari Mandir</span>
+                        <span class="quote-author">– Committee Member, Kaleshwari Temple</span>
                     </blockquote>
                 </div>
                 
@@ -959,7 +967,7 @@
                 <!-- The Solution Section -->
                 <div class="case-section">
                     <h2>The Solution</h2>
-                    <p>We designed and launched a <strong>user-friendly website</strong> for Kaleshwari Mandir that created a "Digital presence" honoring tradition while working with modern convenience.</p>
+                    <p>We designed and launched a <strong>user-friendly website</strong> for Kaleshwari Temple that created a "Digital presence" honoring tradition while working with modern convenience.</p>
                     
                     <div class="solution-features">
                         <div class="feature-item">
@@ -1018,14 +1026,14 @@
                     
                     <blockquote>
                         "We didn't just get a website; we got a partner who understood our faith and helped us adapt without losing our tradition."
-                        <span class="quote-author">– Shri. Krishnal Maharaj Tagunde, Kaleshwari Mandir</span>
+                        <span class="quote-author">– Shri. Krishnal Maharaj Tagunde, Kaleshwari Temple</span>
                     </blockquote>
                 </div>
                 
                 <!-- Results Section -->
                 <div class="results-section">
                     <h2 style="text-align: center; color: var(--secondary);">The Results</h2>
-                    <p style="text-align: center; color: var(--gray); margin-bottom: 0;">Within 3 months of launch, Kaleshwari Mandir saw significant improvements across key metrics</p>
+                    <p style="text-align: center; color: var(--gray); margin-bottom: 0;">Within 3 months of launch, Kaleshwari Temple saw significant improvements across key metrics</p>
                     
                     <div class="results-grid">
                         <div class="result-item">
@@ -1037,11 +1045,11 @@
                             <div class="result-label">Fewer queries about darshan timings</div>
                         </div>
                         <div class="result-item">
-                            <div class="result-value">27%</div>
+                            <div class="result-value">37%</div>
                             <div class="result-label">Growth in donations</div>
                         </div>
                         <div class="result-item">
-                            <div class="result-value">100%</div>
+                            <div class="result-value">94%</div>
                             <div class="result-label">Younger devotees connected</div>
                         </div>
                     </div>
@@ -1079,8 +1087,8 @@
                     <div class="testimonial-text">
                         This website has become our temple's digital prasad. Simple, pure, and connecting thousands of hearts. We never thought technology could preserve devotion this beautifully - Even from miles away, devotees can offer seva, see darshan, and be part of Annadan. It's as if Kaleshwari Mata herself is blessing every home.
                     </div>
-                    <div class="testimonial-author">Shri. Machindra Maharaj Walanj</div>
-                    <div class="testimonial-role">Kaleshwari Mandir</div>
+                    <div class="testimonial-author">Shri. Krishnal Maharaj Tagunde</div>
+                    <div class="testimonial-role">Kaleshwari Temple</div>
                 </div>
                 
                 <!-- CTA Section -->
@@ -1258,5 +1266,97 @@
     </script>
 
     <script src="Customscroll.js"></script>
+
+    <!-- Chatbot -->
+    <link rel="stylesheet" href="./CSS/chatbot.css">
+    <script src="./script/chatbot.js"></script>
+
+
+    <!-- Booking Modal -->
+<div class="modal" id="bookingModal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeBookingModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="modal-header">
+            <h2>Book Your Free 30-Minute Consultation</h2>
+            <p>Let's discuss how we can help transform your business</p>
+        </div>
+
+        <form class="booking-form" id="bookingForm">
+            <div class="form-row">
+                <div class="form-group-modal">
+                    <label>Full Name <span>*</span></label>
+                    <input type="text" id="bookingName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group-modal">
+                    <label>Email Address <span>*</span></label>
+                    <input type="email" id="bookingEmail" placeholder="your@email.com" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group-modal">
+                    <label>Phone Number <span>*</span></label>
+                    <input type="tel" id="bookingPhone" placeholder="+91 999999999" required>
+                </div>
+                <div class="form-group-modal">
+                    <label>Company Name</label>
+                    <input type="text" id="bookingCompany" placeholder="Your company (optional)">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group-modal">
+                    <label>Preferred Date <span>*</span></label>
+                    <input type="date" id="bookingDate" required>
+                </div>
+                <div class="form-group-modal">
+                    <label>Preferred Time <span>*</span></label>
+                    <input type="time" id="bookingTime" required>
+                </div>
+            </div>
+
+            <div class="form-group-modal">
+                <label>Service Interested In <span>*</span></label>
+                <select id="bookingService" required>
+                    <option value="">Select a service</option>
+                    <option value="CRM Solutions">CRM Solutions</option>
+                    <option value="ERP Solutions">ERP Solutions</option>
+                    <option value="Billing Software">Billing Software</option>
+                    <option value="Website Development">Website Development</option>
+                    <option value="Mobile App Development">Mobile App Development</option>
+                    <option value="AI Solutions">AI Solutions</option>
+                    <option value="Cloud Solutions">Cloud Solutions</option>
+                    <option value="Digital Marketing">Digital Marketing</option>
+                    <option value="UI/UX Design">UI/UX Design</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group-modal">
+                <label>Message / Additional Details</label>
+                <textarea id="bookingMessage" placeholder="Tell us about your project or questions..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-booking-btn">
+                <i class="fas fa-calendar-check"></i> Book My Call
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Success Message Overlay -->
+<div class="success-message" id="bookingSuccess">
+    <i class="fas fa-check-circle"></i> 
+    <strong>Your Call is Booked!</strong>
+    <p>Our team will connect with you as soon as possible. Thank you for choosing Zonixtec!</p>
+</div>
+
+
+    <!-- Booking Modal Script -->
+    <script src="./script/booking-modal.js"></script>
+
 </body>
 </html>

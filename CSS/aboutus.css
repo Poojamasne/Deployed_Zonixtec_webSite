@@ -2163,8 +2163,16 @@
     box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     letter-spacing: 0.5px;
+    }
+
+    .cta-buttons i {
+    margin-right: 6px;
+    transform: scaleX(-1);
+    display: inline-block;
     }
 
     .cta-buttons:hover {
