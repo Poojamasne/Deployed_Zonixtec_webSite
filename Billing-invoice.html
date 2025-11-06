@@ -132,7 +132,7 @@
             color: var(--primary);
         }
 
-        .nav-links {
+        /* .nav-links {
             display: flex;
             align-items: center;
             gap: 30px;
@@ -159,7 +159,7 @@
             width: 100%;
             height: 2px;
             background-color: var(--secondary);
-        }
+        } */
 
 
 
@@ -840,7 +840,7 @@
                 font-size: 3rem;
             }
 
-            .nav-links {
+            /* .nav-links {
                 display: none;
                 position: absolute;
                 top: 100%;
@@ -850,11 +850,11 @@
                 flex-direction: column;
                 padding: 20px;
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            }
+            } */
 
-            .nav-links.active {
+            /* .nav-links.active {
                 display: flex;
-            }
+            } */
 
             .mobile-menu-btn {
                 display: block;
@@ -917,13 +917,34 @@
         <div class="container">
             <nav>
                 <a href="index.html" class="logo">
-                    <img src="./Assets/Logo.svg" alt="Zonixtec Logo" style="height: 40px; width: auto;">
+                    <img src="./Assets/Logo.svg" alt="Logo">
                 </a>
+    
                 <div class="nav-links">
-
                     <a href="aboutus.html">About</a>
-
-                    <!-- Services Dropdown -->
+    
+                    <!-- <div class="dropdown">
+                            <a href="Services.html" class="dropdown-toggle">
+                                Services <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-content">
+                                <div class="dropdown-scroll">
+                                    <a href="web-design-development.html">Web Design & Development</a>
+                                    <a href="web-app-development.html">Web App Development</a>
+                                    <a href="CustomSoftware.html">Custom Software Development</a>
+                                    <a href="crm-solutions.html">Custom CRM Solutions</a>
+                                    <a href="erp-solutions.html">Custom ERP Solutions</a>
+                                    <a href="Billing-invoice">Billing-Invoice</a>
+                                    <a href="AIStrategy.html">AI Strategy & Consulting</a>
+                                    <a href="DigitalMarketing.html">Digital Marketing Services</a>
+                                    <a href="MobileDevelopment.html">Mobile App Development</a>
+                                    <a href="ui.html">UI/UX Design Services</a>
+                                    <a href="CloudSolutions.html">Cloud Solutions</a>
+    
+                                </div>
+                            </div>
+                        </div> -->
+    
                     <div class="dropdown">
                         <a href="Services.html" class="dropdown-toggle">Services <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
@@ -933,7 +954,7 @@
                                 <a href="CustomSoftware.html">Custom Software Development</a>
                                 <a href="crm-solutions.html">Custom CRM Solutions</a>
                                 <a href="erp-solutions.html">Custom ERP Solutions</a>
-                                <a href="Billing-invoice.html">Billing-Invoice</a>
+                                <a href="Billing-invoice">Billing-Invoice</a>
                                 <a href="AIStrategy.html">AI Strategy & Consulting</a>
                                 <a href="DigitalMarketing.html">Digital Marketing Services</a>
                                 <a href="MobileDevelopment.html">Mobile App Development</a>
@@ -942,15 +963,15 @@
                             </div>
                         </div>
                     </div>
-
+    
                     <a href="carrer.html">Career</a>
                     <a href="contact.html">Contact</a>
                     <a href="javascript:void(0);" class="cta-buttons" onclick="openBookingModal()">
                         <i class="fas fa-phone-alt"></i>Book A 30 Min Call
                     </a>
                 </div>
-                
-                <button class="mobile-menu-btn" aria-label="Toggle mobile menu" onclick="window.toggleMobileMenu && window.toggleMobileMenu()">
+    
+                <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -1692,6 +1713,7 @@
 
     <!-- Booking Modal Script -->
     <script src="./script/booking-modal.js"></script>
+    <script src="./script/navbar.js"></script>
 
 </body>
 
